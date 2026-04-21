@@ -1,6 +1,4 @@
 # Streakflow
-=======
-# Streakflow
 
 A clean, practical React app for tracking daily habits, streaks, and personal consistency metrics. Built as a portfolio project to practice real-world React patterns including component architecture, state management, streak logic, and localStorage persistence.
 
