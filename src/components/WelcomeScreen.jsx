@@ -6,7 +6,7 @@ export default function WelcomeScreen() {
    // Main div
    <div className="flex items-center justify-center h-screen">
       {/* Elements div */}
-      <div className="flex-col justify-items-center px-3 py-5 h-4/5 w-1/4">
+      <div className=" flex flex-col justify-items-center px-3 py-5 h-4/5 w-1/4">
 
          {/* Circles Div */}
          <div className="flex justify-center">
@@ -16,13 +16,13 @@ export default function WelcomeScreen() {
 
          {/* Text area */}
          <div className="mt-10">
-            <div className="flex text-center font-sans font-bold text-3xl max-w-11/12  text-[#39264c]">What should we call you?</div>
+            <div className="flex text-center justify-center font-sans font-bold text-3xl max-w-11/12  text-[#39264c]">What should we call you?</div>
             <div className="flex text-center justify-center font-thin text-[#8479c4] mt-4">We'll use this to personalize your dashboard.</div>
          </div>
 
          {/* Input field */}
          <div className="flex min-w-8/10 justify-center mt-10">
-            <input placeholder="Your name" type="text" className="bg-[#f3e6fa] w-full h-12 px-5 rounded-lg  focus:outline-none focus:ring-1 focus:ring-gray-400"/>
+            <input placeholder="Your name" type="text" className="bg-[#f3e6fa] w-full h-12 px-5 rounded-lg placeholder-opacity-80 focus:outline-none focus:ring-1 focus:ring-gray-400"/>
          </div>
 
          {/* Let's go button */}

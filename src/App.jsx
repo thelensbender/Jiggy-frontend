@@ -1,5 +1,5 @@
 import { useState } from "react";
-import WelcomeScreen from "./components/WelcomeScreen";
+import  TextWithLogo from "./assets/Logos/Colored Icon and Text.png";
 
 export default function App() {
    // defaultMetrics is a variable of dummy values
@@ -31,12 +31,15 @@ export default function App() {
          {date: "19-01-2005", completed: false}
       ]
    }]
-
-
    const [metrics, setMetrics] = useState(defaultMetrics);
+
    return (
-      <>
-         <WelcomeScreen></WelcomeScreen>
-      </>
+      // Main div
+      <div className="w-full fixed">
+         <div className=" flex items-center justify-between px-3">
+            <div className="w-40"><img className="w-full" src={TextWithLogo} alt="Streakflow Logo" /></div> {/* Logo  */}
+            <div className="rounded-full h-13 w-13 bg-[#8B5CF6]"></div> {/* User Icon */}
+         </div>
+      </div>
   );
 }
