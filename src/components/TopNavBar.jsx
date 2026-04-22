@@ -1,4 +1,4 @@
-import  TextWithLogo from "./assets/Logos/Colored Icon and Text.png";
+import  TextWithLogo from "../assets/Logos/ColoredIconandText.png";
 
 export default function TopNavBar() {
    return (

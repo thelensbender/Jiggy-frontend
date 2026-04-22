@@ -22,7 +22,7 @@ export default function WelcomeScreen() {
 
          {/* Input field */}
          <div className="flex min-w-8/10 justify-center mt-10">
-            <input placeholder="Your name" type="text" className="bg-[#f3e6fa] w-full h-12 px-5 rounded-lg placeholder-opacity-80 focus:outline-none focus:ring-1 focus:ring-gray-400"/>
+            <input placeholder="Your name" type="text" className="bg-[#f3e6fa] w-full h-12 px-5 rounded-lg placeholder-current::placeholder focus:outline-none focus:ring-1 focus:ring-gray-400"/>
          </div>
 
          {/* Let's go button */}
