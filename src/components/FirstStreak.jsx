@@ -1,4 +1,5 @@
-import { Plus, FileCodeCorner, Dumbbell, EyeOff, Rocket} from "lucide-react";
+import { FileCodeCorner, Dumbbell, EyeOff, Rocket} from "lucide-react";
+import Button from "../src/components/AButton.jsx";
 
 export default function FirstStreak() {
    // Habit Suggestion for New user
@@ -25,11 +26,8 @@ export default function FirstStreak() {
                <div className="flex text-center justify-center font-normal text-[#8479c4] mt-4">Pick something you want to do every day. Log it once and watch the streak grow.</div>
             </div>
 
-            {/* Add first habit button */}
-            <div className="flex justify-center items-center mt-10 h-12 rounded-full bg-[#8B5CF6] gap-2 ">
-               <Plus  color="white" size={23} />
-               <p className="text-base font-sans font-bold text-white">Add your first habit</p>
-            </div>
+            {/* Add habit button */}
+            <Button/>
 
             {/* Quick starts */}
             <div className="flex flex-col items-center mt-10 ">

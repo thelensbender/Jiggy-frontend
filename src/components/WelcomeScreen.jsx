@@ -1,7 +1,12 @@
 import {ArrowRight} from "lucide-react";
+import Input from "./components/UI/Input.jsx";
 
 // Welcome Screen for new User
 export default function WelcomeScreen() {
+   const inputInfo = {
+      placeholder: "Your name",
+      type: "text"
+   }
   return (
    // Main div
    <div className="flex items-center justify-center h-screen">
@@ -21,9 +26,8 @@ export default function WelcomeScreen() {
          </div>
 
          {/* Input field */}
-         <div className="flex min-w-8/10 justify-center mt-10">
-            <input placeholder="Your name" type="text" className="bg-[#f3e6fa] w-full h-12 px-5 rounded-lg placeholder-current::placeholder focus:outline-none focus:ring-1 focus:ring-gray-400"/>
-         </div>
+         <Input inputInfo = {inputInfo}/>
+
 
          {/* Let's go button */}
          <div className="flex justify-center items-center mt-10 min-w-8/10 h-12 rounded-full bg-[#8B5CF6] gap-2 ">

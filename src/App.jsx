@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Zap, FileCodeCorner, Dumbbell, EyeOff } from 'lucide-react';
+import { ChartColumnIncreasing, Check,  FileCodeCorner, Dumbbell, EyeOff, Plus} from 'lucide-react';
+import ElementHeader from "./components/UI/ElementHeader.jsx";
+import Input from "./components/UI/Input.jsx";
+import Button from "./components/UI/Button.jsx";
+
+
 
 
 export default function App() {
@@ -46,48 +51,76 @@ export default function App() {
    }]
    const [habit, setMetrics] = useState(defaultHabits);
 
+   const ElementInfo = {
+      Icon: Dumbbell,
+      Header : "Daily Strength",
+      Info: "Log your progress for today"
+   }
+   const [elementInfo, setElementInfo] = useState(ElementInfo);
 
+   const inputInfos = [{
+      placeholder: "0",
+      type: "number",
+      heading: "Duration (Minutes)"
+   },
+   {
+      placeholder: "How did it go?",
+      type: "text",
+      heading: "Reflection"
+   }]
+
+   const week = ["M", "T", "W", "T", "F", "S", "S"];
+
+   const buttonInfo = [
+      {
+         text: "Mark as Done",
+         icon: Check,
+         backgroundColor: "#8B5CF6",
+         textColour: "white"
+      },
+      {
+         text: "Skip for today",
+         icon: Check,
+         backgroundColor: "white",
+         textColour: "#746e7c"
+
+      }]
    return (
       // Main div
       <div className="flex items-center justify-center h-full">
          {/* Elements div */}
-         <div className="flex flex-col items-center px-3 py-5 h-4/5 w-1/4">
-            <div>
-               <div className="text-4xl font-bold font-sans">Keep the streak alive🔥</div>
-               <div className="text-[#746e7c] font-sans">Tuesday, April 21</div> {/* Date */}
+         <div className="flex flex-col items-center w-1/4">
+            {/* Element Header */}
+            <ElementHeader elementInfo={elementInfo}/>
+
+            {/* A week progress(Show from Monday to Sunday) */}
+            <div className="flex w-full justify-between mt-10">
+               {week.map((day) =>{
+                  return (
+                     <div className="flex flex-col gap-1 items-center">
+                        <div className="text-xs text-[#746e7c] font-sans">{day}</div>
+                        <div className="flex justify-center items-center rounded-full h-8 w-8 bg-white border-2 border-[#8B5CF6]"><Check size={20} color="#8B5CF6"/></div>
+                     </div>
+                  )
+               })}
             </div>
 
-            <div className="w-30"><div className="w-full"></div></div> {/* Fire div. I want to add animation after */}
+            {/* Input field */}
+            <div className="w-full">
+               {inputInfos.map((inputInfo) =>{
+                  return (
+                     <Input inputInfo={inputInfo}/>
+                  )
+               })}
+            </div>
 
-            <div className="flex justify-center items-center rounded-full h-18 w-18 bg-[#8B5CF6] mt-10"><Zap color="white" size={40}></Zap></div> {/* Bolt div */}
-
-            {/* Habits preview master div*/}
-            <div className="w-full m-10">
-               {/* Habit Preview Headers */}
-               <div className="flex justify-between w-full">
-                  <div className="text-lg text-[#494454] font-sans font-bold tracking-wider">YOUR HABITS</div>
-                  <div className="text-[#5515bd] font-san">View All</div>
-               </div>
-
-               {/* Habits preview*/}
-               <div className="flex flex-col gap-5 mt-5">
-                 {habit.map((eachHabit) => {
-                    const Icon = eachHabit.icon;
-                    const progress = Math.round((eachHabit.streak / eachHabit.goal.value) * 100);
-
-                    // Each Habit
-                    return (
-                     <div className="flex gap-5 rounded-lg bg-[#fffdff] p-5">
-                        <div style={{ backgroundColor: eachHabit.divBackground }} className="flex justify-center items-center rounded-full h-13 w-13"><Icon color={eachHabit.iconColor} size={20}></Icon></div>
-                        <div>
-                           <div className="text-[#1d1a23] font-bold">{eachHabit.name}</div>
-                           <div className="text-[#717171]">{eachHabit.streak} {eachHabit.unit}</div>
-                        </div>
-                        <div>{progress}%</div>
-                     </div>
-                    )
-                 })}
-               </div>
+            {/* Buttons */}
+            <div className="flex flex-col gap-3 w-full mt-10">
+               {buttonInfo.map((buttonInfo) =>{
+                  return (
+                        <Button buttonInfo={buttonInfo}/>
+                  )
+               })};
             </div>
          </div>
       </div>
