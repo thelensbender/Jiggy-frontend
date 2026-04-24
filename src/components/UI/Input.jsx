@@ -1,10 +1,20 @@
 
+   // const inputInfos = [{
+   //    placeholder: "0",
+   //    type: "number",
+   //    heading: "Duration (Minutes)"
+   // },
+   // {
+   //    placeholder: "How did it go?",
+   //    type: "text",
+   //    heading: "Reflection"
+   // }]
 
 export default function Input({inputInfo}) {
    return (
       <div className=" mt-10">
          {inputInfo.heading && (
-            <div className="text-[#746e7c] font-sans">
+            <div className="text-[#746e7c] text-xs font-sans tracking-widest">
             {inputInfo.heading}
             </div>
          )}

@@ -1,4 +1,10 @@
 
+   // const ElementInfo = {
+   //    Icon: User ,
+   //    Header : "Ijinleifeoluwa Shadare",
+   //    Info: "@thelensbender • Pro Member"
+   // }
+
 export default function ElementHeader({elementInfo}) {
    const Icon = elementInfo.Icon;
    return (

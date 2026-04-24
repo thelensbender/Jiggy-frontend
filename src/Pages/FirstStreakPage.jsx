@@ -1,5 +1,5 @@
-import { FileCodeCorner, Dumbbell, EyeOff, Rocket} from "lucide-react";
-import Button from "../src/components/AButton.jsx";
+import { FileCodeCorner, Dumbbell, EyeOff, Rocket, Plus} from "lucide-react";
+import Button from "../components/UI/Button";
 
 export default function FirstStreak() {
    // Habit Suggestion for New user
@@ -7,6 +7,14 @@ export default function FirstStreak() {
       {habitName: "Coding", icon: FileCodeCorner},
       {habitName: "Exercise", icon: Dumbbell},
       {habitName: "No Fap", icon: EyeOff}]
+
+   const buttonInfo = {
+      text: "Add new Habit",
+      icon: Plus,
+      backgroundColor: "#8B5CF6",
+      textColour: "white"
+   }
+
    return (
       // Main div
       <div className="flex items-center justify-center h-screen">
@@ -27,7 +35,7 @@ export default function FirstStreak() {
             </div>
 
             {/* Add habit button */}
-            <Button/>
+            <div className="w-full mt-8"><Button buttonInfo = {buttonInfo}/></div>
 
             {/* Quick starts */}
             <div className="flex flex-col items-center mt-10 ">
@@ -35,11 +43,11 @@ export default function FirstStreak() {
 
                {/* Habits container */}
                <div className="flex flex-wrap justify-center gap-3 mt-5">
-                  {quickStarts.map((eachHabit) => {
+                  {quickStarts.map((eachHabit, i) => {
                      const Icon = eachHabit.icon;
                      // Each Habit
                      return (
-                        <div className="flex flex-row text-nowrap justify-center items-center bg-[#f9ecff] shadow px-7 py-3 gap-3 w-40 border border-gray-200 rounded-full">
+                        <div key={i} className="flex flex-row text-nowrap justify-center items-center bg-[#f9ecff] shadow px-7 py-3 gap-3 w-40 border border-gray-200 rounded-full">
                            <Icon size={20} color="#67537c"></Icon>
                            <div className="text-base font-sans font-normal text-[#67537c]">{eachHabit.habitName}</div>
                         </div>

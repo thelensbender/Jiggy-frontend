@@ -1,5 +1,8 @@
-import {ArrowRight} from "lucide-react";
-import Input from "./components/UI/Input.jsx";
+import {ArrowRight, Check} from "lucide-react";
+import Input from "../components/UI/Input";
+import Button from "../components/UI/Button";
+
+
 
 // Welcome Screen for new User
 export default function WelcomeScreen() {
@@ -7,9 +10,15 @@ export default function WelcomeScreen() {
       placeholder: "Your name",
       type: "text"
    }
+   const buttonInfo ={
+         text: "Let's go",
+         icon: ArrowRight,
+         backgroundColor: "#8B5CF6",
+         textColour: "white"
+      }
   return (
    // Main div
-   <div className="flex items-center justify-center h-screen">
+   <div className="flex items-center justify-center h-screen w-full">
       {/* Elements div */}
       <div className=" flex flex-col justify-items-center px-3 py-5 h-4/5 w-1/4">
 
@@ -30,10 +39,7 @@ export default function WelcomeScreen() {
 
 
          {/* Let's go button */}
-         <div className="flex justify-center items-center mt-10 min-w-8/10 h-12 rounded-full bg-[#8B5CF6] gap-2 ">
-            <p className="text-base font-sans font-bold text-white">Let's go</p>
-            <ArrowRight color="white" size={23} />
-         </div>
+         <div className="w-full mt-8"><Button buttonInfo = {buttonInfo}/></div>
       </div>
    </div>
   )

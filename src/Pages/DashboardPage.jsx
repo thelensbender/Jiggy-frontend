@@ -1,13 +1,20 @@
 import React from 'react'
-import { Zap, FileCodeCorner, Dumbbell, EyeOff } from 'lucide-react';
-import Button from "../src/components Button.jsx";
-import HabitInfo from "../src/components/Habit/HabitInfo.jsx";
+import { Check, Zap, Plus } from 'lucide-react';
+import Button from "../components/UI/Button.jsx";
+import HabitInfo from "../components/Habit/HabitInfo.jsx";
 
 
 
 // REMEMBER THAT THE HABIT DATA ISNT HERE, IT MIGHT NOT WORK UNTIL YOU CONNECT IT WITH THE DATA
 const habit = {};
-export default function Dashboard() {
+export default function Dashboard({habit}) {
+      const buttonInfo = {
+         text: "Add new Habit",
+         icon: Plus,
+         backgroundColor: "#8B5CF6",
+         textColour: "white"
+      }
+
    return (
       // Main div
       <div className="flex items-center justify-center h-full">
@@ -46,7 +53,7 @@ export default function Dashboard() {
                </div>
 
                {/* Add habit button */}
-               <Button />
+               <div className="w-full mt-8"><Button buttonInfo = {buttonInfo}/></div>
             </div>
          </div>
       </div>
