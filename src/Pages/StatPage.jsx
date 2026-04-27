@@ -10,7 +10,7 @@ export default function StatTab() {
 }
    return (
       // Main div
-      <div className="flex items-center justify-center h-full">
+      <div className="flex justify-center">
          {/* Elements div */}
          <div className="flex flex-col items-center w-1/4">
             <div  className="flex flex-col items-center">

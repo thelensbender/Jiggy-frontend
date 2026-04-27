@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react"
 import HabitInfo from "../components/Habit/HabitInfo"
 import Button from "../components/UI/Button"
 // REMEMBER THAT THE HABIT DATA ISNT HERE, IT MIGHT NOT WORK UNTIL YOU CONNECT IT WITH THE DATA
-export default function AllHabit({Habit}) {
+export default function AllHabit({habits}) {
    const buttonInfo ={
       text: "Let's go",
       icon: ArrowRight,
@@ -12,9 +12,9 @@ export default function AllHabit({Habit}) {
    }
    return (
       // Main div
-      <div className="flex items-center justify-center h-full">
+      <div className="flex justify-center">
          {/* Elements div */}
-         <div className="flex flex-col items-center px-3 py-5 h-4/5 w-1/4">
+         <div className="flex flex-col w-1/4">
             {/* All Habits master div*/}
             <div className="w-full mt-10">
                {/* Habit Preview Headers */}
@@ -32,11 +32,11 @@ export default function AllHabit({Habit}) {
 
                {/* Habits preview*/}
                <div className="flex flex-col gap-5 mt-8">
-                  {Habit.map((eachHabit) => {
+                  {habits.map((eachHabit) => {
                      // Each Habit
                      return (
                         <div key={eachHabit.id} className="flex items-center justify-between gap-5 rounded-lg bg-[#fffdff] p-5">
-                           <HabitInfo habit={eachHabit}/>
+                           <HabitInfo habits={eachHabit}/>
 
                            {/* Log progress */}
                            <div className="bg-linear-to-br from-[#8B5CF6] to-[#a581f8df] rounded-full text-[#f5f2fd] px-4 py-2 shadow">Log</div>

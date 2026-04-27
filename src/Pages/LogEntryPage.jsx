@@ -12,14 +12,24 @@ export default function LogEntry() {
    }
 
    const inputInfos = [{
+      label: "short",
       placeholder: "0",
       type: "number",
-      heading: "DURATION (MINUTES)"
+      heading: "DURATION (MINUTES)",
+      options: [
+         { label: "", value: "" },
+         { label: "", value: "" }
+      ]
    },
    {
+      label: "short",
       placeholder: "How did it go?",
       type: "text",
-      heading: "REFLECTION"
+      heading: "REFLECTION",
+      options: [
+         { label: "", value: "" },
+         { label: "", value: "" }
+      ]
    }]
 
    const week = ["M", "T", "W", "T", "F", "S", "S"];
@@ -40,7 +50,7 @@ export default function LogEntry() {
       }]
    return (
       // Main div
-      <div className="flex items-center justify-center h-full">
+      <div className="flex justify-center pb-20">
          {/* Elements div */}
          <div className="flex flex-col items-center w-1/4">
             {/* Element Header */}

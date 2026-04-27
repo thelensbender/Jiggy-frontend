@@ -1,40 +1,83 @@
 import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import ElementHeader from "./components/UI/ElementHeader";
+import Input from "./components/UI/Input";
+import Button from "./components/UI/Button";
+import {Check, Bold} from 'lucide-react';
+
 
 // Icons
-import { } from 'lucide-react';
-
-// Files and Components
-import {defaultHabits} from "./data/defaultMetrics";
-import WelcomePage from "./Pages/WelcomePage";
-import Dashboard from "./Pages/DashboardPage";
-import FirstStreak from "./Pages/FirstStreakPage";
-import HabitPage from "./Pages/HabitPage";
-import LogEntryPage from "./Pages/LogEntryPage";
-import ProfilePage from "./Pages/ProfilePage";
-import StatPage from "./Pages/StatPage";
-
-
-
-
+import { NotebookPen } from 'lucide-react';
 
 
 
 export default function App() {
+   const ElementInfo = {
+      Icon: NotebookPen ,
+      Header : "Define Your Habit",
+      Info: "Small steps lead to great changes."
+   }
+   const [elementInfo, setElementInfo] = useState(ElementInfo);
 
-   const [habits, setHabits] = useState(defaultHabits);
+   const inputInfos = [{
+      label: "short",
+      placeholder: "e.g Read, Workout, No Fap",
+      type: "text",
+      heading: "Habit Name",
+      options: [
+         { label: "", value: "" },
+         { label: "", value: "" }
+      ]
+   },
+   {
+      label: "long",
+      placeholder: "Write a short note about this habit...",
+      type: "text",
+      heading: "Description (Optional)",
+      options: [
+         { label: "", value: "" },
+         { label: "", value: "" }
+      ]
+   },
+   {
+      label: "",
+      placeholder: "",
+      type: "radio",
+      heading: "Tracking Unit",
+      options: [
+         { label: "Days", value: "days" },
+         { label: "Hours", value: "hours" }
+      ]
+   },
+   {
+      label: "",
+      placeholder: "0",
+      type: "number",
+      heading: "Streak Goal (Optional)",
+      options: [
+         { label: "", value: "" },
+         { label: "", value: "" }
+      ]
+   }]
+
+   const buttonInfo = {
+      text: "Create Habit",
+      icon: Check,
+      backgroundColor: "#8B5CF6",
+      textColour: "white"
+   }
+
 
    return (
       // Main div
-      <Routes>
-         {/* <Route path="/" element={<WelcomePage />} /> */}
-         {/* <Route path="/" element={<Dashboard />} /> */}
-         {/* <Route path="/" element={<FirstStreak />} /> */}
-         {/* <Route path="/" element={<HabitPage Habit={habit} />} /> */}
-         {/* <Route path="/" element={<LogEntryPage/>} /> */}
-         {/* <Route path="/" element={<ProfilePage/>} /> */}
-         {/* <Route path="/" element={<StatPage/>} /> */}
-         <Route path="/" element={<StatPage/>} />
-      </Routes>
+      <div className="flex justify-center">
+         {/* Elements div */}
+         <div className="flex flex-col w-1/4">
+            <ElementHeader elementInfo={elementInfo}/>
+            <Input inputInfo={inputInfos}/>
+            <div className="text-[#746e7c] font-sans mt-2">Set a goal if you want a target, or leave empty.<br/>Leaving goal empty means you're streaking <strong> till infinity.</strong></div>
+            <Button buttonInfo={buttonInfo}/>
+         </div>
+
+      </div>
   );
 }

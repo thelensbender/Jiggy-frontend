@@ -22,14 +22,14 @@ export default function BottomNavBar() {
    ]
   return (
    // Main div
-   <div className="w-full fixed bottom-0 bg-white h-20 px-40">
+   <div className="w-full fixed bottom-0 bg-white h-20 px-40 z-10">
       {/* Grouped tab div */}
       <div className="flex items-center justify-between px-3 h-full">
-         {buttomNav.map((eachTab) => {
+         {buttomNav.map((eachTab, i) => {
             const Icon = eachTab.Icon;
             // Each Tab
             return (
-               <div className="flex flex-col items-center">
+               <div key={i} className="flex flex-col items-center">
                   <Icon color="#343434"></Icon>
                   <div className="text-[#343434] text-sm mt-1">{eachTab.tabName}</div>
                </div>

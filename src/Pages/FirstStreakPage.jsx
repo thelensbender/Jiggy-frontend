@@ -17,9 +17,9 @@ export default function FirstStreak() {
 
    return (
       // Main div
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex justify-center">
          {/* Elements div */}
-         <div className="flex flex-col justify-items-center px-3 py-5 h-4/5 w-1/4">
+         <div className="flex flex-col justify-items-center w-1/4">
 
             {/* Circles Div */}
             <div className="flex justify-center">

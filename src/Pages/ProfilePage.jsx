@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { User, ShieldCheck, ChevronRight, BellRing, Clock, Mail, Palette, Globe, HatGlasses, LogOut } from 'lucide-react';
 import ElementHeader from "../components/UI/ElementHeader.jsx";
-import Input from "../components/UI/Input.jsx";
 import Button from "../components/UI/Button.jsx";
 import CircleIcon from "../components/UI/CircleIcon.jsx";
 import Toggle from "../components/UI/Toggle.jsx";
@@ -61,7 +60,7 @@ export default function ProfilePage() {
    ]
    return (
       // Main div
-      <div className="flex items-center justify-center h-full">
+      <div className="flex justify-center">
          {/* Elements div */}
          <div className="flex flex-col items-center w-1/4 mb-10">
             {/* Element Header */}
