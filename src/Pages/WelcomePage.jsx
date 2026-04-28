@@ -7,8 +7,14 @@ import Button from "../components/UI/Button";
 // Welcome Screen for new User
 export default function WelcomeScreen() {
    const inputInfo = {
+      label: "short",
       placeholder: "Your name",
-      type: "text"
+      type: "text",
+      heading: "",
+      options: [
+         { label: "", value: "" },
+         { label: "", value: "" }
+      ]
    }
    const buttonInfo ={
          text: "Let's go",
