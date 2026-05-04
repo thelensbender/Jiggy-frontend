@@ -1,27 +1,38 @@
+import {useContext} from "react";
+import UserContext from "../UserContext";
+
 import {ArrowRight, Check} from "lucide-react";
 import Input from "../components/UI/Input";
 import Button from "../components/UI/Button";
+import { useNavigate } from "react-router-dom";
+
 
 
 
 // Welcome Screen for new User
 export default function WelcomeScreen() {
-   const inputInfo = {
+   const navigate = useNavigate();
+   const { form, setUser, notify, user } = useContext(UserContext);
+
+   const inputInfo = [{
       label: "short",
-      placeholder: "Your name",
+      placeholder: "Your name or nickname",
       type: "text",
+      name: "user",
       heading: "",
+      required: true,
       options: [
          { label: "", value: "" },
          { label: "", value: "" }
       ]
-   }
+   }]
    const buttonInfo ={
          text: "Let's go",
          icon: ArrowRight,
          backgroundColor: "#8B5CF6",
          textColour: "white"
       }
+
   return (
    // Main div
    <div className="flex items-center justify-center h-screen w-full">
@@ -41,11 +52,24 @@ export default function WelcomeScreen() {
          </div>
 
          {/* Input field */}
-         <Input inputInfo = {inputInfo}/>
+         <Input inputInfo = {inputInfo} />
 
 
          {/* Let's go button */}
-         <div className="w-full mt-8"><Button buttonInfo = {buttonInfo}/></div>
+         <div className="w-full mt-8">
+            <Button
+               onClick = {()=> {
+                  if (form.user) {
+                     notify("Hello, " + form.user + '!', "success")
+                     setUser(form.user);
+                     console.log(user);
+                     navigate("/first-streak");
+                  } else {
+                     notify("Input your name or nickname please!", "error");
+                  }
+               }}
+               buttonInfo = {buttonInfo}/>
+         </div>
       </div>
    </div>
   )

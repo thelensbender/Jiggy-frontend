@@ -1,4 +1,7 @@
-import React from 'react'
+import {useContext} from "react";
+import UserContext from "../UserContext";
+
+
 import { Check, Zap, Plus } from 'lucide-react';
 import Button from "../components/UI/Button.jsx";
 import HabitInfo from "../components/Habit/HabitInfo.jsx";
@@ -6,7 +9,8 @@ import HabitInfo from "../components/Habit/HabitInfo.jsx";
 
 
 // REMEMBER THAT THE HABIT DATA ISNT HERE, IT MIGHT NOT WORK UNTIL YOU CONNECT IT WITH THE DATA
-export default function Dashboard({habits}) {
+export default function Dashboard() {
+   const { habits } = useContext(UserContext);
       const buttonInfo = {
          text: "Add new Habit",
          icon: Plus,

@@ -3,40 +3,40 @@ import {FileCodeCorner, Dumbbell, EyeOff} from "lucide-react";
 
 
 export const defaultHabits = [{
-   id: "metric-1",
-   name: "Coding",
-   unit: "Days",
-   icon: FileCodeCorner,
-   iconColor: "#5210bc",
+   habitName: "Coding",
+   habitDescription: "",
+   habitUnit: "Days",
+   habitGoal: {exist: true, value: 30},
+   habitIcon: FileCodeCorner,
+   habitIconColor: "#5210bc",
    divBackground: "#e9ddff",
    streak: 5,
-   goal: {exist: true, value: 30},
    entries: [
       {date: "2025-01-18"},
       {date: "2025-01-19"}
    ]
 }, {
-   id: "metric-2",
-   name: "Exercise",
-   unit: "Days",
-   icon: Dumbbell,
-   iconColor: "#845403",
+   habitName: "Exercise",
+   habitDescription: "",
+   habitUnit: "Days",
+   habitGoal: {exist: false, value: 30},
+   habitIcon: Dumbbell,
+   habitIconColor: "#845403",
    divBackground: "#ffddb7",
    streak: 13,
-   goal: {exist: false, value: 30},
    entries: [
       {date: "2025-01-18"},
       {date: "2025-01-19"}
    ]
 }, {
-   id: "metric-3",
-   name: "No Fap",
-   unit: "Days",
-   icon: EyeOff,
-   iconColor: "#004d46",
+   habitName: "No Fap",
+   habitDescription: "",
+   habitUnit: "Days",
+   habitGoal: {exist: false, value: 30},
+   habitIcon: EyeOff,
+   habitIconColor: "#004d46",
    divBackground: "#a1f1e5",
    streak: 0,
-   goal: {exist: false, value: 30},
    entries: [
       {date: "2025-01-18"},
       {date: "2025-01-19"}

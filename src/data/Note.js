@@ -51,6 +51,7 @@ const defaultHabits = [{
       label: "short",
       placeholder: "0",
       type: "number",
+      name: "dayDuration",
       heading: "Duration (Minutes)",
       options: [
          { label: "", value: "" },
@@ -61,7 +62,8 @@ const defaultHabits = [{
       label: "short", // Short or long
       placeholder: "How did it go?",
       type: "text",
-      heading: "Reflection"
+      heading: "Reflection",
+      name: "dayReflection",
       options: [
          { label: "Days", value: "days" },
          { label: "Hours", value: "hours" }

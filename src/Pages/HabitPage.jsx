@@ -1,9 +1,14 @@
+import {useContext} from "react";
+import UserContext from "../UserContext";
+
+
 import { ArrowRight } from "lucide-react"
 
 import HabitInfo from "../components/Habit/HabitInfo"
 import Button from "../components/UI/Button"
 // REMEMBER THAT THE HABIT DATA ISNT HERE, IT MIGHT NOT WORK UNTIL YOU CONNECT IT WITH THE DATA
-export default function AllHabit({habits}) {
+export default function AllHabit() {
+   const { habits } = useContext(UserContext);
    const buttonInfo ={
       text: "Let's go",
       icon: ArrowRight,
@@ -12,11 +17,11 @@ export default function AllHabit({habits}) {
    }
    return (
       // Main div
-      <div className="flex justify-center">
+      <div className="flex items-center justify-center">
          {/* Elements div */}
          <div className="flex flex-col w-1/4">
             {/* All Habits master div*/}
-            <div className="w-full mt-10">
+            <div className="w-full">
                {/* Habit Preview Headers */}
 
                <div className="flex justify-between items-center w-full">
@@ -32,16 +37,18 @@ export default function AllHabit({habits}) {
 
                {/* Habits preview*/}
                <div className="flex flex-col gap-5 mt-8">
-                  {habits.map((eachHabit) => {
+                  {habits.map((eachHabit, id) => {
                      // Each Habit
-                     return (
-                        <div key={eachHabit.id} className="flex items-center justify-between gap-5 rounded-lg bg-[#fffdff] p-5">
-                           <HabitInfo habits={eachHabit}/>
+                     while(id < 3) {
+                        return (
+                           <div key={id} className="flex items-center justify-between gap-5 rounded-lg bg-[#fffdff] p-5">
+                              <HabitInfo habits={eachHabit}/>
 
-                           {/* Log progress */}
-                           <div className="bg-linear-to-br from-[#8B5CF6] to-[#a581f8df] rounded-full text-[#f5f2fd] px-4 py-2 shadow">Log</div>
-                        </div>
-                     )
+                              {/* Log progress */}
+                              <div className="bg-linear-to-br from-[#8B5CF6] to-[#a581f8df] rounded-full text-[#f5f2fd] px-4 py-2 shadow">Log</div>
+                           </div>
+                        )
+                     }
                   })}
                </div>
 

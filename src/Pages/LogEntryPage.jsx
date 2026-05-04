@@ -15,6 +15,7 @@ export default function LogEntry() {
       label: "short",
       placeholder: "0",
       type: "number",
+      name: "dayDuration",
       heading: "DURATION (MINUTES)",
       options: [
          { label: "", value: "" },
@@ -25,6 +26,7 @@ export default function LogEntry() {
       label: "short",
       placeholder: "How did it go?",
       type: "text",
+      name: "dayReflection",
       heading: "REFLECTION",
       options: [
          { label: "", value: "" },

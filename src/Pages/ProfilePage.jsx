@@ -45,13 +45,11 @@ export default function ProfilePage() {
 
    const profileSettings = [
       {
-         key: "Notification",
          heading: "NOTIFICATIONS",
          headingSettings: [{text: "Push Notifications", icon: BellRing}, {text: "Streak Reminders", icon: Clock}, {text: "Weekly Digest", icon: Mail}],
          hasToggle: {confirm: true, value: false}
       },
       {
-         key: "Preference",
          heading: "PREFERENCE",
          icon: Clock,
          headingSettings: [{text: "Appearance", icon: Palette}, {text: "Language", icon: Globe}, {text: "Data & Privacy", icon: HatGlasses}],
