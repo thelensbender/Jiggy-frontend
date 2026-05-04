@@ -37,7 +37,7 @@ export default function Input({inputInfo}) {
                      <div className="flex text-[#746e7c] text-xs font-sans tracking-widest">
                      {EachInputInfo.heading}
                      {EachInputInfo.required &&(
-                        <div className="text-xs text-red-700">*</div>
+                        <div className="text-sm ml-1 text-red-700">*</div>
                      )}
                      </div>
                   )}
