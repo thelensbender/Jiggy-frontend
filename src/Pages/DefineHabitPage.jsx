@@ -89,10 +89,10 @@ export default function DefineHabit() {
             <Input inputInfo={inputInfos} form = {form} />
             <div className="text-[#746e7c] font-sans mt-2">Set a goal if you want a <strong>target</strong>, or leave empty.<br/>Leaving goal empty means you're streaking <strong> till infinity.</strong></div>
             <div className="mt-5"><Button onClick={()=>{
-               if (form.habitName && form.habitUnit) {
+               if (form.habitData.habitName && form.habitData.habitUnit) {
+                  // An object to temporarily store the new habit
                   const newHabit = {
-                     ...form,
-                     habitIcon: FileCodeCorner,
+                     ...form.habitData, habitIcon: FileCodeCorner,
                      habitIconColor: "#5210bc",
                      divBackground: "#e9ddff",
                      streak: 0,
@@ -100,12 +100,15 @@ export default function DefineHabit() {
                      // {date: "2025-01-18"}
                   };
 
+                  // Loops through the habit array to check if habit exists to avoid duplication
                   for(let i = 0; i < habits.length; i++){
-                     if(habits[i].habitName === newHabit.habitName) {
+                     if((habits[i]?.habitName === newHabit.habitName)) {
                         notify("Habit already exists!", "error");
                         return;
                      }
-                  }
+                  };
+
+                  // Add the new habit object to the habit array
                   setHabits((prevHabit => {
                      if(habits === defaultHabits) {
                         return[newHabit];
@@ -113,13 +116,14 @@ export default function DefineHabit() {
                      return [...prevHabit, newHabit];
                   }));
 
+                  // Pop up notification and move to the next page
                   notify("Habit created", "success");
-                  console.log(habits);
+                  console.log(newHabit);
                   navigate("/habit");
                } else {
                   notify("Fill up the required fields please!", "error");
-                  // if(form.habitName)
-               }
+                  // if(form.habitData.habitName)
+               };
                }} buttonInfo={buttonInfo}/></div>
          </div>
       </div>

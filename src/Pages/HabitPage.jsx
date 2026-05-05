@@ -1,17 +1,20 @@
 import {useContext} from "react";
 import UserContext from "../UserContext";
+import {useNavigate } from "react-router-dom";
 
 
-import { ArrowRight } from "lucide-react"
+import { BadgePlus } from "lucide-react"
 
 import HabitInfo from "../components/Habit/HabitInfo"
 import Button from "../components/UI/Button"
 // REMEMBER THAT THE HABIT DATA ISNT HERE, IT MIGHT NOT WORK UNTIL YOU CONNECT IT WITH THE DATA
 export default function AllHabit() {
-   const { habits } = useContext(UserContext);
+   const navigate = useNavigate();
+
+   const { habits, setForm, formFormat } = useContext(UserContext);
    const buttonInfo ={
-      text: "Let's go",
-      icon: ArrowRight,
+      text: "Create a new Habit",
+      icon: BadgePlus,
       backgroundColor: "#8B5CF6",
       textColour: "white"
    }
@@ -53,7 +56,10 @@ export default function AllHabit() {
                </div>
 
                {/* Add habit button */}
-               <div className="w-full mt-8"><Button buttonInfo = {buttonInfo}/></div>
+               <div className="w-full mt-8"><Button onClick={()=>{
+                  setForm(formFormat)
+                  navigate("/define-habit");
+                  }} buttonInfo = {buttonInfo}/></div>
             </div>
          </div>
       </div>

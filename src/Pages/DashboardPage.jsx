@@ -1,5 +1,6 @@
 import {useContext} from "react";
 import UserContext from "../UserContext";
+import {useNavigate } from "react-router-dom";
 
 
 import { Check, Zap, Plus } from 'lucide-react';
@@ -10,7 +11,10 @@ import HabitInfo from "../components/Habit/HabitInfo.jsx";
 
 // REMEMBER THAT THE HABIT DATA ISNT HERE, IT MIGHT NOT WORK UNTIL YOU CONNECT IT WITH THE DATA
 export default function Dashboard() {
-   const { habits } = useContext(UserContext);
+   const navigate = useNavigate();
+
+
+   const { habits, setForm, formFormat } = useContext(UserContext);
       const buttonInfo = {
          text: "Add new Habit",
          icon: Plus,
@@ -42,12 +46,12 @@ export default function Dashboard() {
 
                {/* Habits preview*/}
                <div className="flex flex-col gap-5 mt-5">
-                  {habits.map((eachHabit) => {
-                     const progress = Math.round((eachHabit.streak / eachHabit.goal.value) * 100);
+                  {habits.map((eachHabit, i) => {
+                     const progress = Math.round((eachHabit.streak / eachHabit.habitGoal.value) * 100);
 
                      // Each Habit
                      return (
-                     <div key={eachHabit.id} className="flex items-center justify-between gap-5 rounded-lg bg-[#fffdff] p-5">
+                     <div key={i} className="flex items-center justify-between gap-5 rounded-lg bg-[#fffdff] p-5">
                         <HabitInfo habits={eachHabit}/> {/*  Icon and name component */}
                         <div>{progress}%</div>
                      </div>
@@ -56,7 +60,10 @@ export default function Dashboard() {
                </div>
 
                {/* Add habit button */}
-               <div className="w-full mt-8"><Button buttonInfo = {buttonInfo}/></div>
+               <div className="w-full mt-8"><Button onClick={()=>{
+                  setForm(formFormat)
+                  navigate("/define-habit");
+                  }} buttonInfo = {buttonInfo}/></div>
             </div>
          </div>
       </div>

@@ -60,11 +60,14 @@ export default function FirstStreak() {
                            key={i}
                            className="cursor-pointer flex flex-row text-nowrap justify-center items-center bg-[#f9ecff] shadow px-7 py-3 gap-3 w-40 border border-gray-200 rounded-full"
                            onClick={() => {
-                              setForm({...form,
+                              setForm((prev) => ({...prev, habitData: {...prev.habitData,
                                  habitName: eachHabit.habitName,
-                                 habitunit: eachHabit.unit,
-                                 habitGoal: (eachHabit.habitGoal.exist ? eachHabit.habitGoal.value : 0),
-                                 habitIcon: Icon});
+                                 habitDescription: "",
+                                 habitUnit: eachHabit.habitUnit,
+                                 habitGoal: {
+                                    exist: eachHabit.habitGoal.exist,
+                                    value: (eachHabit.habitGoal.exist ? eachHabit.habitGoal.value : 0)},
+                                 habitIcon: Icon}}));
                               navigate("/define-habit");
                               }}>
                            <Icon size={20} color="#67537c"></Icon>

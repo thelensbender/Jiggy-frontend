@@ -1,23 +1,30 @@
 import { Calendar1, Layers, ChartColumnIncreasing, Settings , Icon} from 'lucide-react';
 
+import {useNavigate } from "react-router-dom";
 
 export default function BottomNavBar() {
+   const navigate = useNavigate();
+
    const buttomNav = [
       {
          tabName: "Today",
-         Icon: Calendar1
+         Icon: Calendar1,
+         navigate: "/dashboard"
       },
       {
          tabName: "Habits",
-         Icon: Layers
+         Icon: Layers,
+         navigate: "/habit"
       },
       {
          tabName: "Stats",
-         Icon: ChartColumnIncreasing
+         Icon: ChartColumnIncreasing,
+         navigate: "/stats"
       },
       {
          tabName: "Settings",
-         Icon: Settings
+         Icon: Settings,
+         navigate: "/profile"
       }
    ]
   return (
@@ -29,7 +36,10 @@ export default function BottomNavBar() {
             const Icon = eachTab.Icon;
             // Each Tab
             return (
-               <div key={i} className="flex flex-col items-center">
+               <div
+                  key={i}
+                  onClick={() => {navigate(eachTab.navigate)}}
+                  className="flex flex-col items-center">
                   <Icon color="#343434"></Icon>
                   <div className="text-[#343434] text-sm mt-1">{eachTab.tabName}</div>
                </div>

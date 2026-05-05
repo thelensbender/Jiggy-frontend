@@ -60,9 +60,9 @@ export default function WelcomeScreen() {
             <Button
                onClick = {()=> {
                   if (form.user) {
-                     notify("Hello, " + form.user + '!', "success")
                      setUser(form.user);
                      console.log(user);
+                     notify("Hello, " + form.user + '!', "success")
                      navigate("/first-streak");
                   } else {
                      notify("Input your name or nickname please!", "error");

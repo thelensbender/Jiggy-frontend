@@ -27,6 +27,17 @@ import UserContext from "../../UserContext";
 
 export default function Input({inputInfo}) {
    const { form, setForm } = useContext(UserContext);
+   const getValue = (name) => {
+      if (name === "habitGoal") {
+         return form.habitData.habitGoal?.value || "";
+      }
+
+      if (name === "user") {
+         return form.user || "";
+      }
+
+      return form.habitData[name] || "";
+   };
    return (
       <div>
          {inputInfo.map((EachInputInfo) => {
@@ -54,14 +65,14 @@ export default function Input({inputInfo}) {
                               type={EachInputInfo.type}
                               onChange={(e) => {
                                  setForm((prev) => {
-                                    return {...prev, [EachInputInfo.name]: e.target.value}
+                                    return {...prev, habitData:{...prev.habitData, [EachInputInfo.name]: e.target.value}}
                                  });
                               }}
                               onInput={(e) => {
                                  e.target.style.height = "auto";
                                  e.target.style.height = e.target.scrollHeight + "px";
                                  }}
-                              value={form[EachInputInfo.name]  || ""}
+                              value={form.habitData[EachInputInfo.name]  || ""}
                               className="bg-[#f3e6fa] rounded-md scrollbar-hide w-full py-5 px-5 font-sans text-center placeholder:text-center placeholder-current::placeholder focus:outline-none focus:ring-1 focus:ring-[#8B5CF6]"/>
                         )
                            :
@@ -73,22 +84,26 @@ export default function Input({inputInfo}) {
                                  onChange={(e) => {
                                     if (EachInputInfo.name === "habitGoal") {
                                        setForm((prev) => {
-                                          return {...prev,  habitGoal: {
-                                          ...form.habitGoal,
+                                          return {...prev, habitData: {...prev.habitData,
+                                          habitGoal: {
+                                          ...prev.habitData.habitGoal,
                                           value: e.target.value
-                                          }}}
+                                          }}}}
                                        );
+                                    } else if (EachInputInfo.name === "user") {
+                                       setForm(
+                                          (prev) => {return {
+                                             ...prev,
+                                             user: e.target.value
+                                          }}
+                                       )
                                     } else {
                                        setForm((prev) => {
-                                          return {...prev, [EachInputInfo.name]:  e.target.value}
+                                          return {...prev, habitData:{...prev.habitData, [EachInputInfo.name]: e.target.value}}
                                        });
                                     }
                                  }}
-                                 value={
-                                    EachInputInfo.name === "habitGoal"
-                                    ? form.habitGoal?.value || ""
-                                    : form[EachInputInfo.name] || ""
-                                 }
+                                 value={getValue(EachInputInfo.name)}
                                  className="bg-[#f3e6fa] rounded-md overflow-hidden w-full h-12 py-5 px-5 font-sans text-center  placeholder:text-center placeholder-current::placeholder focus:outline-none focus:ring-1 focus:ring-[#8B5CF6]"/>
                            )
 
@@ -100,8 +115,12 @@ export default function Input({inputInfo}) {
                                  return (
                                     <div key={i}>
                                        <label
-                                          className={`px-18 py-5 rounded-full cursor-pointer text-lg border ${form[EachInputInfo.name] === EachOption.value ? "bg-[#8B5CF6] text-white" : "bg-white text-[#746e7c]"}`}
-                                          onClick={() => setForm((prev) => {return {...prev, [EachInputInfo.name]: EachOption.value}})}>
+                                          className={`px-18 py-5 rounded-full cursor-pointer text-lg border ${form.habitData[EachInputInfo.name] === EachOption.value ? "bg-[#8B5CF6] text-white" : "bg-white text-[#746e7c]"}`}
+                                          onClick={() => setForm(
+                                             (prev) => {
+                                                return {...prev, habitData: {...prev.habitData, [EachInputInfo.name]: EachOption.value}}
+                                             }
+                                          )}>
                                           <input
                                              type={EachInputInfo.type}
                                              className="hidden"/>
