@@ -3,6 +3,7 @@ import {FileCodeCorner, Dumbbell, EyeOff} from "lucide-react";
 
 
 export const defaultHabits = [{
+   habitId: crypto.randomUUID(),
    habitName: "Coding",
    habitDescription: "",
    habitUnit: "Days",
@@ -12,10 +13,21 @@ export const defaultHabits = [{
    divBackground: "#e9ddff",
    streak: 5,
    entries: [
-      {date: "2025-01-18"},
-      {date: "2025-01-19"}
+      {
+         entryId: crypto.randomUUID(),
+         date: "2026-05-07",
+         duration: 45,
+         reflection: "Focused well today"
+      },
+      {
+         entryId: crypto.randomUUID(),
+         date: "2026-05-08",
+         duration: 20,
+         reflection: "Very distracted"
+      }
    ]
 }, {
+   habitId: crypto.randomUUID(),
    habitName: "Exercise",
    habitDescription: "",
    habitUnit: "Days",
@@ -25,10 +37,21 @@ export const defaultHabits = [{
    divBackground: "#ffddb7",
    streak: 13,
    entries: [
-      {date: "2025-01-18"},
-      {date: "2025-01-19"}
+      {
+         entryId: crypto.randomUUID(),
+         date: "2026-05-07",
+         duration: 45,
+         reflection: "Focused well today"
+      },
+      {
+         entryId: crypto.randomUUID(),
+         date: "2026-05-08",
+         duration: 20,
+         reflection: "Very distracted"
+      }
    ]
 }, {
+   habitId: crypto.randomUUID(),
    habitName: "No Fap",
    habitDescription: "",
    habitUnit: "Days",
@@ -38,8 +61,18 @@ export const defaultHabits = [{
    divBackground: "#a1f1e5",
    streak: 0,
    entries: [
-      {date: "2025-01-18"},
-      {date: "2025-01-19"}
+      {
+         entryId: crypto.randomUUID(),
+         date: "2026-05-07",
+         duration: 45,
+         reflection: "Focused well today"
+      },
+      {
+         entryId: crypto.randomUUID(),
+         date: "2026-05-08",
+         duration: 20,
+         reflection: "Very distracted"
+      }
    ]
 }]
 

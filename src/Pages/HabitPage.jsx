@@ -5,7 +5,7 @@ import {useNavigate } from "react-router-dom";
 
 import { BadgePlus } from "lucide-react"
 
-import HabitInfo from "../components/Habit/HabitInfo"
+import HabitCard from "../components/Habit/HabitCard"
 import Button from "../components/UI/Button"
 // REMEMBER THAT THE HABIT DATA ISNT HERE, IT MIGHT NOT WORK UNTIL YOU CONNECT IT WITH THE DATA
 export default function AllHabit() {
@@ -20,7 +20,7 @@ export default function AllHabit() {
    }
    return (
       // Main div
-      <div className="flex items-center justify-center">
+      <div className="flex items-center mb-15 justify-center">
          {/* Elements div */}
          <div className="flex flex-col w-1/4">
             {/* All Habits master div*/}
@@ -29,7 +29,7 @@ export default function AllHabit() {
 
                <div className="flex justify-between items-center w-full">
                   <div className="flex flex-col justify-center ">
-                     <div className="text-lg text-[#494454] font-sans font-bold tracking-widest">ALL HABITS</div>
+                     <div className="text-2xl text-[#494454] font-sans font-bold tracking-widest">ALL HABITS</div>
                      <div className="text-[#5515bd] font-san">Stay Focused, Stay Kinetic!</div>
                   </div>
                   {/* Fire div. I want to add animation after. */}
@@ -42,16 +42,9 @@ export default function AllHabit() {
                <div className="flex flex-col gap-5 mt-8">
                   {habits.map((eachHabit, id) => {
                      // Each Habit
-                     while(id < 3) {
-                        return (
-                           <div key={id} className="flex items-center justify-between gap-5 rounded-lg bg-[#fffdff] p-5">
-                              <HabitInfo habits={eachHabit}/>
-
-                              {/* Log progress */}
-                              <div className="bg-linear-to-br from-[#8B5CF6] to-[#a581f8df] rounded-full text-[#f5f2fd] px-4 py-2 shadow">Log</div>
-                           </div>
-                        )
-                     }
+                     return (
+                        <HabitCard key={id} habit={eachHabit}/>
+                     )
                   })}
                </div>
 

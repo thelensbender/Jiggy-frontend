@@ -28,14 +28,21 @@ import UserContext from "../../UserContext";
 export default function Input({inputInfo}) {
    const { form, setForm } = useContext(UserContext);
    const getValue = (name) => {
+      // For habit goal only
       if (name === "habitGoal") {
          return form.habitData.habitGoal?.value || "";
       }
-
+      //  For user input only
       if (name === "user") {
          return form.user || "";
       }
 
+      // For habit log, for taking in duration and reflection
+      if (name === "duration" || name === "reflection") {
+         return form.entries[name] || "";
+      }
+
+      //  For general input collection
       return form.habitData[name] || "";
    };
    return (
@@ -56,7 +63,7 @@ export default function Input({inputInfo}) {
                   {/* Input field */}
                   <div className="flex mt-3 min-w-8/10 justify-center">
 
-                     {/* Input for Text */}
+                     {/* Input for Text*/}
                      {EachInputInfo.type !== "radio" ? (
                         EachInputInfo.label === "long" ? (
                            // Long text area
@@ -64,46 +71,81 @@ export default function Input({inputInfo}) {
                               placeholder={EachInputInfo.placeholder}
                               type={EachInputInfo.type}
                               onChange={(e) => {
-                                 setForm((prev) => {
-                                    return {...prev, habitData:{...prev.habitData, [EachInputInfo.name]: e.target.value}}
-                                 });
+                                 // For collecting habit log
+                                 if (EachInputInfo.name === "reflection") {
+                                    setForm((prev) => {
+                                       return {...prev,
+                                          entries: {...prev.entries,
+                                             [EachInputInfo.name]: e.target.value
+                                          }
+                                       }
+                                    });
+                                 }
+
+                                 // For collecting habit data(Habit description)
+                                 if(EachInputInfo.name === "habitDescription") {
+                                    setForm((prev) => {
+                                       return {...prev,
+                                          habitData:{...prev.habitData,
+                                             [EachInputInfo.name]: e.target.value
+                                          }
+                                       }
+                                    });
+                                 }
+
                               }}
+
                               onInput={(e) => {
                                  e.target.style.height = "auto";
                                  e.target.style.height = e.target.scrollHeight + "px";
                                  }}
-                              value={form.habitData[EachInputInfo.name]  || ""}
+                              value={getValue(EachInputInfo.name)  || ""}
                               className="bg-[#f3e6fa] rounded-md scrollbar-hide w-full py-5 px-5 font-sans text-center placeholder:text-center placeholder-current::placeholder focus:outline-none focus:ring-1 focus:ring-[#8B5CF6]"/>
                         )
                            :
-                           // Short input area
+                           // Short input area or number
                            (
                               <input
                                  placeholder={EachInputInfo.placeholder}
                                  type={EachInputInfo.type}
                                  onChange={(e) => {
+                                    // For habit goal object inside the habitData object
                                     if (EachInputInfo.name === "habitGoal") {
                                        setForm((prev) => {
-                                          return {...prev, habitData: {...prev.habitData,
-                                          habitGoal: {
-                                          ...prev.habitData.habitGoal,
-                                          value: e.target.value
-                                          }}}}
-                                       );
-                                    } else if (EachInputInfo.name === "user") {
+                                          return {...prev,
+                                             habitData: {...prev.habitData,
+                                                habitGoal: {
+                                                ...prev.habitData.habitGoal,
+                                                value: e.target.value
+                                                }
+                                             }
+                                          }
+                                       });
+
+                                       // For user input
+                                    }  else if (EachInputInfo.name === "user") {
                                        setForm(
                                           (prev) => {return {
                                              ...prev,
                                              user: e.target.value
                                           }}
                                        )
-                                    } else {
+                                       // For habit log(duration)
+                                    } else if (EachInputInfo.name === "duration") {
                                        setForm((prev) => {
-                                          return {...prev, habitData:{...prev.habitData, [EachInputInfo.name]: e.target.value}}
+                                          return {...prev,
+                                             entries: {...prev.entries,
+                                                [EachInputInfo.name]: Number(e.target.value)
+                                             }
+                                          }
                                        });
-                                    }
+                                    } else {
+                                          setForm((prev) => { // For full habit definition
+                                             return {...prev, habitData:{...prev.habitData, [EachInputInfo.name]: e.target.value}}
+                                          });
+                                       }
                                  }}
-                                 value={getValue(EachInputInfo.name)}
+                                 value={getValue(EachInputInfo.name)   || "" }
                                  className="bg-[#f3e6fa] rounded-md overflow-hidden w-full h-12 py-5 px-5 font-sans text-center  placeholder:text-center placeholder-current::placeholder focus:outline-none focus:ring-1 focus:ring-[#8B5CF6]"/>
                            )
 

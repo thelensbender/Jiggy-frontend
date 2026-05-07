@@ -5,7 +5,7 @@ import {useNavigate } from "react-router-dom";
 
 import { Check, Zap, Plus } from 'lucide-react';
 import Button from "../components/UI/Button.jsx";
-import HabitInfo from "../components/Habit/HabitInfo.jsx";
+import HabitCard from "../components/Habit/HabitCard.jsx";
 
 
 
@@ -24,7 +24,7 @@ export default function Dashboard() {
 
    return (
       // Main div
-      <div className="flex justify-center">
+      <div className="flex justify-center mb-3">
          {/* Elements div */}
          <div className="flex flex-col items-center w-1/4">
             <div>
@@ -41,27 +41,30 @@ export default function Dashboard() {
                {/* Habit Preview Headers */}
                <div className="flex justify-between w-full">
                   <div className="text-lg text-[#494454] font-sans font-bold tracking-widest">YOUR HABITS</div>
-                  <div className="text-[#5515bd] font-san">View All</div>
+                  <div
+                  onClick={()=> {
+                     navigate("/habit")
+                  }}
+                  className="cursor-pointer text-[#5515bd] font-san">View All</div>
                </div>
 
                {/* Habits preview*/}
                <div className="flex flex-col gap-5 mt-5">
-                  {habits.map((eachHabit, i) => {
-                     const progress = Math.round((eachHabit.streak / eachHabit.habitGoal.value) * 100);
+                  {habits.slice(0, 3).map((eachHabit, i) => {
+                     // const progress = Math.round((eachHabit.streak / eachHabit.habitGoal.value) * 100);
 
                      // Each Habit
                      return (
-                     <div key={i} className="flex items-center justify-between gap-5 rounded-lg bg-[#fffdff] p-5">
-                        <HabitInfo habits={eachHabit}/> {/*  Icon and name component */}
-                        <div>{progress}%</div>
-                     </div>
+                        <HabitCard key={i} habit={eachHabit}/>
+                        // <div>{progress ? progress + "%" : (progress === 0 ? "0" + "%" : "")}</div>
+                        // Log progress
                      )
                   })}
                </div>
 
                {/* Add habit button */}
                <div className="w-full mt-8"><Button onClick={()=>{
-                  setForm(formFormat)
+                  setForm(formFormat);
                   navigate("/define-habit");
                   }} buttonInfo = {buttonInfo}/></div>
             </div>

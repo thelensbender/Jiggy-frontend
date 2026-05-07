@@ -13,7 +13,7 @@ export default function Button({buttonInfo, onClick}) {
       {/* button */}
       <div
       onClick = {onClick}
-      style={{backgroundColor: buttonInfo.backgroundColor}} className="cursor-pointer flex justify-center items-center py-4 w-full rounded-full gap-2 shadow-lg ">
+      style={{backgroundColor: buttonInfo.backgroundColor}} className="cursor-pointer flex justify-center items-center py-4 w-full rounded-full gap-2 shadow">
          {buttonInfo.icon && <Icon  color={buttonInfo.textColour} size={23} />}
          <button type="submit" style={{color:buttonInfo.textColour}} className="cursor-pointer text-base font-sans font-bold text-white">{buttonInfo.text}</button>
       </div>

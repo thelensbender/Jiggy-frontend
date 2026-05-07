@@ -1,3 +1,5 @@
+import {useContext} from "react";
+import UserContext from "../UserContext";
 import { useState } from "react";
 import { User, ShieldCheck, ChevronRight, BellRing, Clock, Mail, Palette, Globe, HatGlasses, LogOut } from 'lucide-react';
 import ElementHeader from "../components/UI/ElementHeader.jsx";
@@ -7,11 +9,13 @@ import Toggle from "../components/UI/Toggle.jsx";
 import DropDown from "../components/UI/DropDown.jsx";
 
 export default function ProfilePage() {
+   const { user } = useContext(UserContext);
+
 
    const ElementInfo = {
       Icon: User ,
-      Header : "Ijinleifeoluwa Shadare",
-      Info: "@thelensbender • Pro Member"
+      Header : `@${user}`,
+      Info: "I am a bright shining light"
    }
    const [elementInfo, setElementInfo] = useState(ElementInfo);
 

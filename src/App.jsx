@@ -16,8 +16,8 @@ import LogEntryPage from "./Pages/LogEntryPage";
 import ProfilePage from "./Pages/ProfilePage";
 import StatPage from "./Pages/StatPage";
 import Layout from "./Layout";
+import ScrollToTop from "./utils/ScrollBackToTop";
 import toast, { Toaster } from "react-hot-toast";
-
 
 
 export default function App() {
@@ -25,7 +25,9 @@ export default function App() {
    const [habits, setHabits] = useState(defaultHabits);
 
    // Stores the user Identity(Name or Nickname)
-   const [user, setUser] = useState("");
+   const [user, setUser] = useState(``);
+
+   const [recentPage, setRecentPage] = useState("")
 
    // Notification function
    const notify = (notificationMessage, status) => {
@@ -48,22 +50,29 @@ export default function App() {
          habitDescription: "",
          habitUnit: "",
          habitGoal: {exist: false, value: 0},
-         // habitIcon: ""
+         habitIcon: ""
+      },
+      entries: {
+         entryId: crypto.randomUUID(),
+         date: new Date().toISOString().split("T")[0],
+         duration: 0,
+         reflection: ""
       }
    }
    const [form, setForm] = useState(formFormat);
 
    return (
-      <UserContext.Provider value = {{user, setUser, habits, setHabits, defaultHabits, form, setForm, formFormat, notify}}>
+      <UserContext.Provider value = {{recentPage, setRecentPage,user, setUser, habits, setHabits, defaultHabits, form, setForm, formFormat, notify}}>
          <Toaster />
+         <ScrollToTop />
          <Routes>
-            <Route path="/" element={<WelcomePage />} />  {/* Welcome Page. First page the user see */}
+            <Route path="/" element={<WelcomePage />} /> {/*  Welcome Page. First page the user see */}
             <Route element={<Layout />}>
                <Route path="/dashboard" element={<Dashboard />} />  {/* Dashboard Page. For user with an habit data on the website already. */}
                <Route path="/first-streak" element={<FirstStreak />} />  {/* FirstStreak Page. For new users with no habit */}
                <Route path="/define-habit" element={<DefineHabit />} />  {/* FirstStreak Page. For new users with no habit */}
                <Route path="/habit" element={<HabitPage />} />  {/* Habit Page. For user to view the progress of all habit */}
-               <Route path="/log-entry/:id" element={<LogEntryPage />} />  {/* LogEntry Page. For user to input the progress if an habit */}
+               <Route path="/log-entry/:habitId" element={<LogEntryPage />} />  {/* LogEntry Page. For user to input the progress if an habit */}
                <Route path="/profile" element={<ProfilePage />} />  {/* Profile Page. User info, settings and privacy */}
                <Route path="/stats" element={<StatPage />} />  {/* Stat Page. See weekly progress with visuals (graphs, highest streak, streak history(I'll do this later)) */}
             </Route>

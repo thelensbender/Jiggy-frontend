@@ -92,12 +92,13 @@ export default function DefineHabit() {
                if (form.habitData.habitName && form.habitData.habitUnit) {
                   // An object to temporarily store the new habit
                   const newHabit = {
-                     ...form.habitData, habitIcon: FileCodeCorner,
+                     ...form.habitData,
+                     entries: [],
+                     habitId: crypto.randomUUID(),
+                     habitIcon: FileCodeCorner,
                      habitIconColor: "#5210bc",
                      divBackground: "#e9ddff",
-                     streak: 0,
-                     entries: [{date: null}]
-                     // {date: "2025-01-18"}
+                     streak: "0"
                   };
 
                   // Loops through the habit array to check if habit exists to avoid duplication

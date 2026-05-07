@@ -8,8 +8,18 @@ const defaultHabits = [{
       streak: 5,
       goal: {exist: true, value: 30},
       entries: [
-         {date: "18-01-2005", completed: true},
-         {date: "19-01-2005", completed: true}
+         {
+            entryId: crypto.randomUUID(),
+            date: "2026-05-07",
+            duration: 45,
+            reflection: "Focused well today"
+         },
+         {
+            entryId: crypto.randomUUID(),
+            date: "2026-05-08",
+            duration: 20,
+            reflection: "Very distracted"
+         }
       ]
    }, {
       id: "metric-2",
@@ -21,8 +31,18 @@ const defaultHabits = [{
       streak: 13,
       goal: {exist: false, value: 30},
       entries: [
-         {date: "18-01-2005", completed: true},
-         {date: "19-01-2005", completed: true}
+         {
+            entryId: crypto.randomUUID(),
+            date: "2026-05-07",
+            duration: 45,
+            reflection: "Focused well today"
+         },
+         {
+            entryId: crypto.randomUUID(),
+            date: "2026-05-08",
+            duration: 20,
+            reflection: "Very distracted"
+         }
       ]
    }, {
       id: "metric-3",
@@ -34,8 +54,18 @@ const defaultHabits = [{
       streak: 0,
       goal: {exist: false, value: 30},
       entries: [
-         {date: "18-01-2005", completed: true},
-         {date: "19-01-2005", completed: false}
+         {
+            entryId: crypto.randomUUID(),
+            date: "2026-05-07",
+            duration: 45,
+            reflection: "Focused well today"
+         },
+         {
+            entryId: crypto.randomUUID(),
+            date: "2026-05-08",
+            duration: 20,
+            reflection: "Very distracted"
+         }
       ]
    }]
    const [habit, setMetrics] = useState(defaultHabits);
