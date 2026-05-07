@@ -1,45 +1,82 @@
 import { useState } from "react";
-import  TextWithLogo from "./assets/Logos/Colored Icon and Text.png";
+import { Routes, Route } from "react-router-dom";
+import UserContext from "./UserContext"
+
+// Icons
+import { } from 'lucide-react';
+
+// Files and Components
+import {defaultHabits} from "./data/defaultMetrics";
+import WelcomePage from "./Pages/WelcomePage";
+import Dashboard from "./Pages/DashboardPage";
+import FirstStreak from "./Pages/FirstStreakPage";
+import DefineHabit from "./Pages/DefineHabitPage";
+import HabitPage from "./Pages/HabitPage";
+import LogEntryPage from "./Pages/LogEntryPage";
+import ProfilePage from "./Pages/ProfilePage";
+import StatPage from "./Pages/StatPage";
+import Layout from "./Layout";
+import ScrollToTop from "./utils/ScrollBackToTop";
+import toast, { Toaster } from "react-hot-toast";
+
 
 export default function App() {
-   // defaultMetrics is a variable of dummy values
-   const defaultMetrics = [{
-      id: "metric-1",
-      name: "Exercise",
-      unit: "Days",
-      streak: 5,
-      entries: [
-         {date: "18-01-2005", completed: true},
-         {date: "19-01-2005", completed: true}
-      ]
-   }, {
-      id: "metric-2",
-      name: "Coding Practice",
-      unit: "Days",
-      streak: 13,
-      entries: [
-         {date: "18-01-2005", completed: true},
-         {date: "19-01-2005", completed: true}
-      ]
-   }, {
-      id: "metric-3",
-      name: "Prayer",
-      unit: "Days",
-      streak: 0,
-      entries: [
-         {date: "18-01-2005", completed: true},
-         {date: "19-01-2005", completed: false}
-      ]
-   }]
-   const [metrics, setMetrics] = useState(defaultMetrics);
+   // Stores all the habit of the user
+   const [habits, setHabits] = useState(defaultHabits);
+
+   // Stores the user Identity(Name or Nickname)
+   const [user, setUser] = useState(``);
+
+   const [recentPage, setRecentPage] = useState("")
+
+   // Notification function
+   const notify = (notificationMessage, status) => {
+      toast[status](notificationMessage, {
+         duration: 2000,
+         position: 'top-center',
+
+         iconTheme: {
+            primary: status === "success" ? "#8B5CF6" : "red",
+            secondary: '#fff',
+         }
+      })
+   }
+
+   // Collect input data
+   const formFormat = {
+      user: "",
+      habitData:{
+         habitName: "",
+         habitDescription: "",
+         habitUnit: "",
+         habitGoal: {exist: false, value: 0},
+         habitIcon: ""
+      },
+      entries: {
+         entryId: crypto.randomUUID(),
+         date: new Date().toISOString().split("T")[0],
+         duration: 0,
+         reflection: ""
+      }
+   }
+   const [form, setForm] = useState(formFormat);
 
    return (
-      // Main div
-      <div className="w-full fixed">
-         <div className=" flex items-center justify-between px-3">
-            <div className="w-40"><img className="w-full" src={TextWithLogo} alt="Streakflow Logo" /></div> {/* Logo  */}
-            <div className="rounded-full h-13 w-13 bg-[#8B5CF6]"></div> {/* User Icon */}
-         </div>
-      </div>
+      <UserContext.Provider value = {{recentPage, setRecentPage,user, setUser, habits, setHabits, defaultHabits, form, setForm, formFormat, notify}}>
+         <Toaster />
+         <ScrollToTop />
+         <Routes>
+            <Route path="/" element={<WelcomePage />} /> {/*  Welcome Page. First page the user see */}
+            <Route element={<Layout />}>
+               <Route path="/dashboard" element={<Dashboard />} />  {/* Dashboard Page. For user with an habit data on the website already. */}
+               <Route path="/first-streak" element={<FirstStreak />} />  {/* FirstStreak Page. For new users with no habit */}
+               <Route path="/define-habit" element={<DefineHabit />} />  {/* FirstStreak Page. For new users with no habit */}
+               <Route path="/habit" element={<HabitPage />} />  {/* Habit Page. For user to view the progress of all habit */}
+               <Route path="/log-entry/:habitId" element={<LogEntryPage />} />  {/* LogEntry Page. For user to input the progress if an habit */}
+               <Route path="/profile" element={<ProfilePage />} />  {/* Profile Page. User info, settings and privacy */}
+               <Route path="/stats" element={<StatPage />} />  {/* Stat Page. See weekly progress with visuals (graphs, highest streak, streak history(I'll do this later)) */}
+            </Route>
+         </Routes>
+      </UserContext.Provider>
   );
 }
