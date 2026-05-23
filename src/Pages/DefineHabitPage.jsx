@@ -21,9 +21,10 @@ export default function DefineHabit() {
    const { form, setHabits, habits, defaultHabits, notify } = useContext(UserContext);
    // For the element heading
    const elementInfo = {
-      Icon: NotebookPen ,
-      Header : "Define Your Habit",
-      Info: "Small steps lead to great changes."
+      icon: NotebookPen ,
+      header : "Define Your Habit",
+      info: "Small steps lead to great changes.",
+      editable: {status: false, icon: ""}
    }
 
    // For the input
@@ -98,7 +99,7 @@ export default function DefineHabit() {
                      habitIcon: FileCodeCorner,
                      habitIconColor: "#5210bc",
                      divBackground: "#e9ddff",
-                     streak: "0"
+                     streak: 0
                   };
 
                   // Loops through the habit array to check if habit exists to avoid duplication

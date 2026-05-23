@@ -25,6 +25,9 @@
 import {useContext} from "react";
 import UserContext from "../../UserContext";
 
+
+import {toISODate} from "../../utils/dateUtils";
+
 export default function Input({inputInfo}) {
    const { form, setForm } = useContext(UserContext);
    const getValue = (name) => {
@@ -32,9 +35,9 @@ export default function Input({inputInfo}) {
       if (name === "habitGoal") {
          return form.habitData.habitGoal?.value || "";
       }
-      //  For user input only
-      if (name === "user") {
-         return form.user || "";
+      //  For user info input
+      if (name === "username" || name === "fullName" || name === "email" || name === "bio") {
+         return form.userInfo[name] || "";
       }
 
       // For habit log, for taking in duration and reflection
@@ -93,14 +96,27 @@ export default function Input({inputInfo}) {
                                     });
                                  }
 
+                                 // For collecting user bio(Bio for the profie)
+                                 if(EachInputInfo.name === "bio") {
+                                    setForm((prev) => {
+                                       return {...prev,
+                                              userInfo:{
+                                                ...prev.userInfo,
+                                             [EachInputInfo.name]: e.target.value
+                                       }
+                                    }
+                                    });
+                                 }
+                                 EachInputInfo.name === "bio"
+
                               }}
 
                               onInput={(e) => {
-                                 e.target.style.height = "auto";
-                                 e.target.style.height = e.target.scrollHeight + "px";
+                                 e.target.style.height = "200px";
+                                 e.target.style.height = (e.target.scrollHeight)/2 + "px";
                                  }}
-                              value={getValue(EachInputInfo.name)  || ""}
-                              className="bg-[#f3e6fa] rounded-md scrollbar-hide w-full py-5 px-5 font-sans text-center placeholder:text-center placeholder-current::placeholder focus:outline-none focus:ring-1 focus:ring-[#8B5CF6]"/>
+                              value={getValue(EachInputInfo.name) || ""}
+                              className="bg-[#f3e6fa76] rounded-md scrollbar-hide w-full py-5 px-5 font-sans text-center placeholder:text-center placeholder-current::placeholder focus:outline-none focus:ring-1 focus:ring-[#8B5CF6]"/>
                         )
                            :
                            // Short input area or number
@@ -123,12 +139,13 @@ export default function Input({inputInfo}) {
                                        });
 
                                        // For user input
-                                    }  else if (EachInputInfo.name === "user") {
+                                    }  else if (EachInputInfo.name === "username" || EachInputInfo.name === "fullName" || EachInputInfo.name === "email") {
                                        setForm(
                                           (prev) => {return {
-                                             ...prev,
-                                             user: e.target.value
-                                          }}
+                                             ...prev, userInfo:{
+                                                ...prev.userInfo,
+                                             [EachInputInfo.name]: e.target.value
+                                          }}}
                                        )
                                        // For habit log(duration)
                                     } else if (EachInputInfo.name === "duration") {
@@ -145,8 +162,8 @@ export default function Input({inputInfo}) {
                                           });
                                        }
                                  }}
-                                 value={getValue(EachInputInfo.name)   || "" }
-                                 className="bg-[#f3e6fa] rounded-md overflow-hidden w-full h-12 py-5 px-5 font-sans text-center  placeholder:text-center placeholder-current::placeholder focus:outline-none focus:ring-1 focus:ring-[#8B5CF6]"/>
+                                 value={getValue(EachInputInfo.name) || "" }
+                                 className="bg-[#f3e6fa76] rounded-md overflow-hidden w-full h-12 py-5 px-5 font-sans text-center  placeholder:text-center placeholder-current::placeholder focus:outline-none focus:ring-1 focus:ring-[#8B5CF6]"/>
                            )
 
                      ) : (

@@ -4,10 +4,11 @@ import ElementHeader from '../components/UI/ElementHeader';
 
 export default function StatTab() {
    const ElementInfo = {
-   Icon: ChartColumnIncreasing,
-   Header : "Weekly Progress",
-   Info: "Consistency Score: 94%"
-}
+      icon: ChartColumnIncreasing,
+      header : "Weekly Progress",
+      info: "Consistency Score: 94%",
+      editable: {status: false, icon: ""}
+   }
    return (
       // Main div
       <div className="flex justify-center">

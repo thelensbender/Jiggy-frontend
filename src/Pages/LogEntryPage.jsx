@@ -12,9 +12,8 @@ import SkipHabitUI from "../components/Layout/SkipHabitConfirm.jsx";
 
 export default function LogEntry() {
    const [showSkipConfirm, setShowSkipConfirm] = useState(false);
-   const [selectedHabitId, setSelectedHabitId] = useState(null);
 
-   const { habits, setHabits, form, setRecentPage, notify } = useContext(UserContext);
+   const { habits, setHabits, form, notify } = useContext(UserContext);
    const navigate = useNavigate();
 
 
@@ -25,9 +24,10 @@ export default function LogEntry() {
    const findHabit = habits.find(h => h.habitId === habitId);
 
    const ElementInfo = {
-      Icon: findHabit?.habitIcon,
-      Header : findHabit.habitName,
-      Info: "Log your progress for today"
+      icon: findHabit?.habitIcon,
+      header : findHabit.habitName,
+      info: "Log your progress for today",
+      editable: {status: false, icon: ""}
    }
 
    const inputInfos = [{
@@ -37,10 +37,7 @@ export default function LogEntry() {
       name: "duration",
       required: false,
       heading: "DURATION (MINUTES) (optional)",
-      options: [
-         { label: "", value: "" },
-         { label: "", value: "" }
-      ]
+      options: []
    },
    {
       label: "long",
@@ -49,10 +46,7 @@ export default function LogEntry() {
       name: "reflection",
       required: false,
       heading: "Reflection (optional)",
-      options: [
-         { label: "", value: "" },
-         { label: "", value: "" }
-      ]
+      options: []
    }]
 
    const week = ["M", "T", "W", "T", "F", "S", "S"];
@@ -64,6 +58,7 @@ export default function LogEntry() {
          backgroundColor: "#8B5CF6",
          textColour: "white",
          onClick: ()=> {
+                     console.log(habitLog);
                      setHabits((prev) => {
                         return prev.map((habit) => {
                            if(habit.habitId === habitId) {
@@ -86,7 +81,6 @@ export default function LogEntry() {
          backgroundColor: "white",
          textColour: "#746e7c",
          onClick: () => {
-            setRecentPage(`/log-entry/${habitId}`)
             setShowSkipConfirm(true);
          }
 
@@ -99,7 +93,7 @@ export default function LogEntry() {
       // Main div
       <>
          {showSkipConfirm && (
-            <SkipHabitUI setShowSkipConfirm = {setShowSkipConfirm} />
+            <SkipHabitUI findHabit = {findHabit} setShowSkipConfirm = {setShowSkipConfirm} />
          )}
          <div className="flex justify-center pb-20">
             {/* Elements div */}
@@ -120,7 +114,7 @@ export default function LogEntry() {
                </div>
 
                {/* Input field */}
-               <div className="w-full">
+               <div className="mt-10 w-full rounded-3xl bg-white px-10  pb-10">
                      <Input inputInfo={inputInfos}/>
                </div>
 

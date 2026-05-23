@@ -12,13 +12,13 @@ import { useNavigate } from "react-router-dom";
 // Welcome Screen for new User
 export default function WelcomeScreen() {
    const navigate = useNavigate();
-   const { form, setUser, notify, user } = useContext(UserContext);
+   const { form, setUserInfo, notify, user } = useContext(UserContext);
 
    const inputInfo = [{
       label: "short",
       placeholder: "Your name or nickname",
       type: "text",
-      name: "user",
+      name: "username",
       heading: "",
       required: true,
       options: [
@@ -42,7 +42,7 @@ export default function WelcomeScreen() {
          {/* Circles Div */}
          <div className="flex justify-center">
             <div className="rounded-full h-18 w-18 bg-[#8B5CF6]"></div>
-            <div className="flex self-start rounded-full h-4 w-4 bg-[#7e4f00]"></div>
+         <div className="flex self-start rounded-full h-4 w-4 bg-[#7e4f00]"></div>
          </div>
 
          {/* Text area */}
@@ -59,13 +59,17 @@ export default function WelcomeScreen() {
          <div className="w-full mt-8">
             <Button
                onClick = {()=> {
-                  if (form.user) {
-                     setUser(form.user);
+                  if (form.userInfo.username) {
+                     setUserInfo((prev) => {
+                        return { ...prev,
+                           username: form.userInfo.username
+                        }
+                     });
                      console.log(user);
-                     notify("Hello, " + form.user + '!', "success")
+                     notify("Hello, " + form.userInfo.username + '!', "success")
                      navigate("/first-streak");
                   } else {
-                     notify("Input your name or nickname please!", "error");
+                     notify("Input a name or nickname please!", "error");
                   }
                }}
                buttonInfo = {buttonInfo}/>
