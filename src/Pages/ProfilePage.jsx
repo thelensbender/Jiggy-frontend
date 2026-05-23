@@ -1,7 +1,11 @@
-import {useContext} from "react";
+import {useContext, useState, useEffect} from "react";
 import UserContext from "../UserContext";
-import { useState } from "react";
-import { User, ShieldCheck, ChevronRight, BellRing, Clock, Mail, Palette, Globe, HatGlasses, LogOut } from 'lucide-react';
+import {useNavigate } from "react-router-dom";
+
+
+import { User, ShieldCheck, ChevronRight, BellRing, Clock, Mail, Palette, Globe, LogOut } from 'lucide-react';
+
+
 import ElementHeader from "../components/UI/ElementHeader.jsx";
 import Button from "../components/UI/Button.jsx";
 import CircleIcon from "../components/UI/CircleIcon.jsx";
@@ -9,42 +13,44 @@ import Toggle from "../components/UI/Toggle.jsx";
 import DropDown from "../components/UI/DropDown.jsx";
 
 export default function ProfilePage() {
-   const { user } = useContext(UserContext);
+   const { userInfo } = useContext(UserContext);
+   const navigate = useNavigate();
 
-
-   const ElementInfo = {
-      Icon: User ,
-      Header : `@${user}`,
-      Info: "I am a bright shining light"
+   const elementInfo = {
+      icon: userInfo.profilePicture ? userInfo.profilePicture : User ,
+      header : userInfo.fullName ? userInfo.fullName : "Add your Full Name",
+      info: `@${userInfo.username}`,
+      info2: userInfo.bio ? userInfo.bio : "Add a bio",
+      editable: {status: false, icon: ""}
    }
-   const [elementInfo, setElementInfo] = useState(ElementInfo);
 
 
    const buttonInfo = {
-         text: "Sign Out",
-         icon: LogOut,
-         backgroundColor: "#ffdad6",
-         textColour: "#ad343b"
-      }
+      text: "Sign Out",
+      icon: LogOut,
+      backgroundColor: "#ffdad6",
+      textColour: "#ad343b"
+   }
 
    const profilecard = [
       {
          id: "card-1",
          cardTitle: "Personal Information",
-         cardSubTitle: "Email, Phone, Bio",
+         cardSubTitle: "Email, Username, Bio",
          icon: User,
          iconColor: "#8B5CF6",
-         bgColor: "#e9ddff"
+         bgColor: "#e9ddff",
+         navigate: "/profile/personal-information"
       },
       {
          id: "card-2",
          cardTitle: "Security and Privacy",
-         cardSubTitle: "Password, privacy",
+         cardSubTitle: "Password, Two-Factor Auth, Privacy",
          icon: ShieldCheck ,
          iconColor: "#8B5CF6",
-         bgColor: "#e9ddff"
+         bgColor: "#e9ddff",
+         navigate: "/profile/security-and-privacy"
       }
-
    ]
 
    const profileSettings = [
@@ -56,7 +62,7 @@ export default function ProfilePage() {
       {
          heading: "PREFERENCE",
          icon: Clock,
-         headingSettings: [{text: "Appearance", icon: Palette}, {text: "Language", icon: Globe}, {text: "Data & Privacy", icon: HatGlasses}],
+         headingSettings: [{text: "Appearance", icon: Palette}, {text: "Language", icon: Globe}],
          hasToggle: {confirm: false, value: ["Light", "English", ""]}
       }
    ]
@@ -72,7 +78,12 @@ export default function ProfilePage() {
             <div className="flex flex-col gap-5 w-full mt-10">
                {profilecard.map((eachCardInfo, i) =>{
                   return (
-                     <div key={i} className="flex items-center justify-between w-full py-3 px-5 bg-[#ece3f494] rounded-full">
+                     <div
+                        key={i}
+                        onClick={()=>{
+                           navigate(eachCardInfo.navigate)
+                        }}
+                        className="flex items-center justify-between w-full py-3 px-5 bg-[#ece3f494] rounded-full">
                         <div className="flex items-center justify-center gap-6 w-full">
                            <CircleIcon key = {eachCardInfo.id} circleIconInfo = {eachCardInfo}/>
                            <div className="w-full">
@@ -91,17 +102,16 @@ export default function ProfilePage() {
                return(
                   <div key = {i} className="w-full mt-10">
                      {/* Heading */}
-                     <div className="text-[#746e7c] font-sans tracking-widest">
+                     <div className="text-[#746e7c] font-sans tracking-widest mb-3">
                         {eachSettings.heading}
                      </div>
 
-                     {/* cards */}
                      <div className="w-full bg-white rounded-4xl shadow">
                         <div className="w-full">
                            {eachSettings.headingSettings.map((eachSetting, index ) => {
                               const Icon = eachSetting.icon
                               return(
-                                 <div key = {index} className="flex justify-between items-center p-4.5 mt-3">
+                                 <div key = {index} className="flex justify-between items-center p-4.5">
                                     {/* Setting details and Icon */}
                                     <div className="flex gap-3 items-center">
                                        <div><Icon color="#8B5CF6" size={22}/></div>
