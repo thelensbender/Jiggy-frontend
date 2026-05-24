@@ -6,8 +6,13 @@ import UserContext from "./UserContext"
 // Icons
 import { } from 'lucide-react';
 
-// Files and Components
+// External Functions
 import {defaultHabits} from "./data/defaultMetrics";
+import {calculateStreak} from "./utils/streakUtils"
+import {toISODate} from "./utils/dateUtils"
+
+
+// Files and Components
 import WelcomePage from "./Pages/WelcomePage";
 import Dashboard from "./Pages/DashboardPage";
 import FirstStreak from "./Pages/FirstStreakPage";
@@ -20,7 +25,6 @@ import PersonalInformationPage from "./Pages/PersonalInformationPage";
 import SecurityAndPrivacyPage from "./Pages/SecurityAndPrivacyPage";
 import Layout from "./Layout";
 import ScrollToTop from "./utils/ScrollBackToTop";
-import {toISODate} from "./utils/dateUtils";
 
 
 export default function App() {
@@ -88,7 +92,7 @@ export default function App() {
    const [form, setForm] = useState(formFormat);
 
    return (
-      <UserContext.Provider value = {{userInfo, setUserInfo, habits, setHabits, defaultHabits, form, setForm, formFormat, notify}}>
+      <UserContext.Provider value = {{userInfo, setUserInfo, habits, setHabits, defaultHabits, form, setForm, formFormat, notify, calculateStreak}}>
          <Toaster />
          <ScrollToTop />
          <Routes>
