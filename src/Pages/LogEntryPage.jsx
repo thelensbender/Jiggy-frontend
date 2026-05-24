@@ -13,7 +13,7 @@ import SkipHabitUI from "../components/Layout/SkipHabitConfirm.jsx";
 export default function LogEntry() {
    const [showSkipConfirm, setShowSkipConfirm] = useState(false);
 
-   const { habits, setHabits, form, notify } = useContext(UserContext);
+   const { habits, setHabits, form, notify, calculateStreak } = useContext(UserContext);
    const navigate = useNavigate();
 
 
@@ -58,21 +58,22 @@ export default function LogEntry() {
          backgroundColor: "#8B5CF6",
          textColour: "white",
          onClick: ()=> {
-                     console.log(habitLog);
                      setHabits((prev) => {
                         return prev.map((habit) => {
                            if(habit.habitId === habitId) {
+                              const newentry = [
+                                 ...habit.entries, habitLog
+                              ]
                               return {...habit,
-                                 entries: [
-                                    ...habit.entries, habitLog
-                                 ]
+                                 entries: newentry,
+                                 streak: calculateStreak(newentry)
                               }
                            }
                               return habit;
                         })
                      });
-                     notify(`You are amazing!`, "success")
-                     navigate("/habit")
+                     notify(`You are amazing!`, "success");
+                     navigate("/habit");
                   }
       },
       {

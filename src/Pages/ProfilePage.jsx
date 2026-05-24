@@ -1,4 +1,4 @@
-import {useContext, useState, useEffect} from "react";
+import {useContext} from "react";
 import UserContext from "../UserContext";
 import {useNavigate } from "react-router-dom";
 
@@ -11,6 +11,7 @@ import Button from "../components/UI/Button.jsx";
 import CircleIcon from "../components/UI/CircleIcon.jsx";
 import Toggle from "../components/UI/Toggle.jsx";
 import DropDown from "../components/UI/DropDown.jsx";
+import {calculateStreak} from "../utils/streakUtils.js";
 
 export default function ProfilePage() {
    const { userInfo } = useContext(UserContext);
@@ -81,9 +82,10 @@ export default function ProfilePage() {
                      <div
                         key={i}
                         onClick={()=>{
-                           navigate(eachCardInfo.navigate)
+                           calculateStreak(['2026-05-19', '2026-05-20', '2026-05-21']);
+                           navigate(eachCardInfo.navigate);
                         }}
-                        className="flex items-center justify-between w-full py-3 px-5 bg-[#ece3f494] rounded-full">
+                        className="cursor-pointer flex items-center justify-between w-full py-3 px-5 bg-[#ece3f494] rounded-full">
                         <div className="flex items-center justify-center gap-6 w-full">
                            <CircleIcon key = {eachCardInfo.id} circleIconInfo = {eachCardInfo}/>
                            <div className="w-full">
