@@ -120,7 +120,6 @@ export default function DefineHabit() {
 
                   // Pop up notification and move to the next page
                   notify("Habit created", "success");
-                  console.log(newHabit);
                   navigate("/habit");
                } else {
                   notify("Fill up the required fields please!", "error");
