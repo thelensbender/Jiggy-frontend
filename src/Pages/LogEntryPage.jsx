@@ -4,14 +4,17 @@ import UserContext from "../UserContext";
 import { useParams } from "react-router-dom";
 import {useNavigate } from "react-router-dom";
 
-import { Check, Dumbbell} from 'lucide-react';
+// Icons
+import { Check, Dumbbell, ArrowLeft, Calendar } from 'lucide-react';
+
+// Components
 import ElementHeader from "../components/UI/ElementHeader.jsx";
 import Input from "../components/UI/Input.jsx";
 import Button from "../components/UI/Button.jsx";
-import SkipHabitUI from "../components/Layout/SkipHabitConfirm.jsx";
+import ConfirmLayout from "../components/Layout/ConfirmLayout.jsx";
 
 export default function LogEntry() {
-   const [showSkipConfirm, setShowSkipConfirm] = useState(false);
+   const [showConfirm, setShowConfirm] = useState(false);
 
    const { habits, setHabits, form, notify, calculateStreak } = useContext(UserContext);
    const navigate = useNavigate();
@@ -22,10 +25,11 @@ export default function LogEntry() {
 
    // Find the exact habit usind the habitId
    const findHabit = habits.find(h => h.habitId === habitId);
+   const habitName = findHabit.habitName;
 
-   const ElementInfo = {
+   const elementInfo = {
       icon: findHabit?.habitIcon,
-      header : findHabit.habitName,
+      header : habitName.length > 30 ? ( habitName.slice(0, 30) + "...") : habitName,
       info: "Log your progress for today",
       editable: {status: false, icon: ""}
    }
@@ -51,7 +55,7 @@ export default function LogEntry() {
 
    const week = ["M", "T", "W", "T", "F", "S", "S"];
 
-   const buttonInfo = [
+   const buttonInfoLog = [
       {
          text: "Mark as Done",
          icon: Check,
@@ -82,7 +86,7 @@ export default function LogEntry() {
          backgroundColor: "white",
          textColour: "#746e7c",
          onClick: () => {
-            setShowSkipConfirm(true);
+            setShowConfirm(true);
          }
 
       }
@@ -90,45 +94,81 @@ export default function LogEntry() {
 
    const habitLog = {...form.entries}
 
+   // The details of the confirmation pop-up
+   const confirmDetails ={
+      icon: Calendar,
+      header : "Skip for Today?",
+      info: (habitName) =>(
+            <>
+               You're about to skip<span className='text-[#8B5CF6]  font-bold'> {(habitName).slice(0, 25) + "..."} </span>for today. Skipping will <strong>break</strong> your current streak. Are you sure?
+            </>
+      ),
+      buttonInfo: [
+         {
+            text: "No, go back",
+            backgroundColor: "white",
+            textColour: "#746e7c",
+            onClick: () => setShowConfirm(false)
+         },
+         {
+            text: "Yes, skip today",
+            backgroundColor: "#8B5CF6",
+            textColour: "white",
+            onClick: () => {
+               notify(`Skipped ${(habitName).slice(0, 20) + "..."} for today`, "success");
+               navigate("/habit");
+            }
+         }
+      ]
+   }
+
    return (
       // Main div
       <>
-         {showSkipConfirm && (
-            <SkipHabitUI findHabit = {findHabit} setShowSkipConfirm = {setShowSkipConfirm} />
+         {showConfirm && (
+            <ConfirmLayout confirmDetails = {confirmDetails} habit = {findHabit} setShowConfirm = {setShowConfirm} />
          )}
-         <div className="flex justify-center pb-20">
+         <div className="flex items-center justify-center pb-20">
             {/* Elements div */}
-            <div className="flex flex-col items-center w-1/4">
-               {/* Element Header */}
-               <ElementHeader elementInfo={ElementInfo}/>
 
-               {/* A week progress(Show from Monday to Sunday) */}
-               <div className="flex w-full justify-between mt-10">
-                  {week.map((day, i) =>{
-                     return (
-                        <div key={i} className="flex flex-col gap-1 items-center">
-                           <div className="text-xs text-[#746e7c] font-sans">{day}</div>
-                           <div className="flex justify-center items-center rounded-full h-8 w-8 bg-white border-2 border-[#8B5CF6]"><Check size={20} color="#8B5CF6"/></div>
-                        </div>
-                     )
-                  })}
+            <div className="flex items-start w-1/4 -mt-10 mb-13">
+               <div
+                  onClick={() => {
+                     navigate(-1)
+                  }}
+                  className="cursor-pointer p-3 rounded-full bg-white mt-10">
+                  <ArrowLeft color="gray"/>
                </div>
+               <div className="flex flex-col">
+                  {/* Element Header */}
+                  <ElementHeader elementInfo={elementInfo}/>
 
-               {/* Input field */}
-               <div className="mt-10 w-full rounded-3xl bg-white px-10  pb-10">
-                     <Input inputInfo={inputInfos}/>
-               </div>
-
-               {/* Buttons */}
-               <div className="flex flex-col gap-3 w-full mt-10">
-                  {buttonInfo.map((buttonInfo, i) =>{
-                     return (
-                        <Button
-                        key={i}
-                        onClick={buttonInfo.onClick}
-                        buttonInfo={buttonInfo}/>
-                     )
-                  })}
+                  {/* A week progress(Show from Monday to Sunday) */}
+                  <div className="flex w-full justify-between mt-10">
+                     {week.map((day, i) =>{
+                        return (
+                           <div key={i} className="flex flex-col gap-1 items-center">
+                              <div className="text-xs text-[#746e7c] font-sans">{day}</div>
+                              <div className="flex justify-center items-center rounded-full h-8 w-8 bg-white border-2 border-[#8B5CF6]"><Check size={20} color="#8B5CF6"/></div>
+                           </div>
+                        )
+                     })}
+                  </div>
+                  {/* Input field */}
+                  <div className="mt-10 w-full rounded-3xl bg-white px-10  pb-10">
+                        <Input inputInfo={inputInfos}/>
+                  </div>
+                  {/* Buttons */}
+                  <div className="flex flex-col gap-3 w-full mt-10">
+                     {buttonInfoLog.map((buttonInfo, i) =>{
+                        return (
+                           <Button
+                           key={i}
+                           onClick={buttonInfo.onClick}
+                           buttonInfo={buttonInfo}/>
+                        )
+                     })}
+                  </div>
                </div>
             </div>
          </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import UserContext from "./UserContext"
@@ -29,10 +29,18 @@ import ScrollToTop from "./utils/ScrollBackToTop";
 
 export default function App() {
    // Stores all the habit of the user
-   const [habits, setHabits] = useState(defaultHabits);
+   let storedHabits = localStorage.getItem("habits");
 
-   // Stores the user Information
-   const [userInfo, setUserInfo] = useState(
+   const [habits, setHabits] = useState(JSON.parse(storedHabits) || []);
+
+   // Save to local storage whenever habit state changes
+   useEffect(() => {
+      localStorage.setItem("habits", JSON.stringify(habits));
+   }, [habits])
+
+
+   // Stores the user Information.Check the user local storage first before creating an empty object
+   const [userInfo, setUserInfo] = useState( localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) :
       {
          username: "",
          fullName: "",
@@ -41,6 +49,10 @@ export default function App() {
          profilePicture: ""
       }
    );
+
+   useEffect(() => {
+      localStorage.setItem("userInfo", JSON.stringify(userInfo));
+   }, [userInfo])
 
    // Notification function
    const notify = (notificationMessage, status) => {
@@ -104,9 +116,9 @@ export default function App() {
                <Route path="/habit" element={<HabitPage />} />  {/* Habit Page. For user to view the progress of all habit */}
                <Route path="/log-entry/:habitId" element={<LogEntryPage />} />  {/* LogEntry Page. For user to input the progress if an habit */}
 
-               <Route path="/profile" element={<ProfilePage />} />  {/* Profile Page. User info, settings and privacy */}
-                  <Route path="/profile/personal-information" element={<PersonalInformationPage />} />  {/* Personal Information Page. For user to edit Full name, username, email address, profile picture, bio.*/}
-                  <Route path="/profile/security-and-privacy" element={<SecurityAndPrivacyPage />} />  {/* SecurityAndPrivacy Page. For user to change password, 2FA, Blocked users, privacy, Recent activity.*/}
+               <Route path="/settings" element={<ProfilePage />} />  {/* Profile Page. User info, settings and privacy */}
+                  <Route path="/settings/personal-information" element={<PersonalInformationPage />} />  {/* Personal Information Page. For user to edit Full name, username, email address, profile picture, bio.*/}
+                  <Route path="/settings/security-and-privacy" element={<SecurityAndPrivacyPage />} />  {/* SecurityAndPrivacy Page. For user to change password, 2FA, Blocked users, privacy, Recent activity.*/}
                <Route/>
 
                <Route path="/stats" element={<StatPage />} />  {/* Stat Page. See weekly progress with visuals (graphs, highest streak, streak history(I'll do this later)) */}

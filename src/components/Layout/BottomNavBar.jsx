@@ -24,7 +24,7 @@ export default function BottomNavBar() {
       {
          tabName: "Settings",
          Icon: Settings,
-         navigate: "/profile"
+         navigate: "/settings"
       }
    ]
   return (
