@@ -78,7 +78,7 @@ export default function PersonalInformationPage() {
                      });
                      notify(`Successful`, "success");
                      setForm(formFormat);
-                     navigate("/profile");
+                     navigate("/settings");
                   }
       },
       {
@@ -88,7 +88,7 @@ export default function PersonalInformationPage() {
          textColour: "#746e7c",
          onClick: () => {
             setForm(formFormat);
-            navigate("/profile");
+            navigate("/settings");
          }
 
       }
@@ -103,7 +103,7 @@ export default function PersonalInformationPage() {
          <div className="flex items-center justify-center gap-5">
             <div
                onClick={() => {
-               navigate("/profile")
+               navigate("/settings")
             }}
             className="cursor-pointer p-3 rounded-full bg-white">
                <ArrowLeft color="gray"/>

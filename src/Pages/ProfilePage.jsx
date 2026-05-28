@@ -2,15 +2,17 @@ import {useContext} from "react";
 import UserContext from "../UserContext";
 import {useNavigate } from "react-router-dom";
 
-
+// Icon
 import { User, ShieldCheck, ChevronRight, BellRing, Clock, Mail, Palette, Globe, LogOut } from 'lucide-react';
 
-
+// Components
 import ElementHeader from "../components/UI/ElementHeader.jsx";
 import Button from "../components/UI/Button.jsx";
 import CircleIcon from "../components/UI/CircleIcon.jsx";
 import Toggle from "../components/UI/Toggle.jsx";
 import DropDown from "../components/UI/DropDown.jsx";
+
+// Utilities
 import {calculateStreak} from "../utils/streakUtils.js";
 
 export default function ProfilePage() {
@@ -41,7 +43,7 @@ export default function ProfilePage() {
          icon: User,
          iconColor: "#8B5CF6",
          bgColor: "#e9ddff",
-         navigate: "/profile/personal-information"
+         navigate: "/settings/personal-information"
       },
       {
          id: "card-2",
@@ -50,7 +52,7 @@ export default function ProfilePage() {
          icon: ShieldCheck ,
          iconColor: "#8B5CF6",
          bgColor: "#e9ddff",
-         navigate: "/profile/security-and-privacy"
+         navigate: "/settings/security-and-privacy"
       }
    ]
 

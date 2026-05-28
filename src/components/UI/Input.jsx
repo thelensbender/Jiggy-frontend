@@ -26,7 +26,6 @@ import {useContext} from "react";
 import UserContext from "../../UserContext";
 
 
-
 export default function Input({inputInfo}) {
    const { form, setForm } = useContext(UserContext);
    const getValue = (name) => {

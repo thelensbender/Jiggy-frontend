@@ -1,6 +1,4 @@
-import React from 'react';
-import {FileCodeCorner, Dumbbell, EyeOff} from "lucide-react";
-
+// import {FileCodeCorner, Dumbbell, EyeOff} from "lucide-react";
 
 export const defaultHabits = [{
    habitId: crypto.randomUUID(),
@@ -8,7 +6,7 @@ export const defaultHabits = [{
    habitDescription: "",
    habitUnit: "Days",
    habitGoal: {exist: true, value: 30},
-   habitIcon: FileCodeCorner,
+   habitIcon: "FileCodeCorner",
    habitIconColor: "#5210bc",
    divBackground: "#e9ddff",
    streak: 5,
@@ -32,7 +30,7 @@ export const defaultHabits = [{
    habitDescription: "",
    habitUnit: "Days",
    habitGoal: {exist: false, value: 30},
-   habitIcon: Dumbbell,
+   habitIcon: "Dumbbell",
    habitIconColor: "#845403",
    divBackground: "#ffddb7",
    streak: 13,
@@ -56,7 +54,7 @@ export const defaultHabits = [{
    habitDescription: "",
    habitUnit: "Days",
    habitGoal: {exist: false, value: 30},
-   habitIcon: EyeOff,
+   habitIcon: "EyeOff",
    habitIconColor: "#004d46",
    divBackground: "#a1f1e5",
    streak: 0,

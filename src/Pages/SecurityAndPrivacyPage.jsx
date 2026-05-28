@@ -75,7 +75,7 @@ export default function SecurityAndPrivacyPage() {
          <div className="flex items-center justify-center gap-5">
             <div
                onClick={() => {
-               navigate("/profile")
+               navigate("/settings")
             }}
             className="cursor-pointer p-3 rounded-full bg-white">
                <ArrowLeft color="gray"/>

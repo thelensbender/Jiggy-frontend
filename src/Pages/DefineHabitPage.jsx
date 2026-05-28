@@ -11,7 +11,7 @@ import {useNavigate } from "react-router-dom";
 
 
 // Icons
-import {BadgePlus, NotebookPen } from 'lucide-react';
+import {BadgePlus, NotebookPen, ArrowLeft } from 'lucide-react';
 
 
 
@@ -85,48 +85,55 @@ export default function DefineHabit() {
       // Main div
       <div className="flex justify-center ">
          {/* Elements div */}
-         <div className="flex flex-col w-1/4 -mt-10 mb-13">
-            <ElementHeader elementInfo={elementInfo}/>
-            <Input inputInfo={inputInfos} form = {form} />
-            <div className="text-[#746e7c] font-sans mt-2">Set a goal if you want a <strong>target</strong>, or leave empty.<br/>Leaving goal empty means you're streaking <strong> till infinity.</strong></div>
-            <div className="mt-5"><Button onClick={()=>{
-               if (form.habitData.habitName && form.habitData.habitUnit) {
-                  // An object to temporarily store the new habit
-                  const newHabit = {
-                     ...form.habitData,
-                     entries: [],
-                     habitId: crypto.randomUUID(),
-                     habitIcon: FileCodeCorner,
-                     habitIconColor: "#5210bc",
-                     divBackground: "#e9ddff",
-                     streak: 0
+
+         <div className="flex items-start w-1/4 -mt-10 mb-13">
+            <div
+               onClick={() => {
+                  navigate(-1)
+               }}
+               className="cursor-pointer p-3 rounded-full bg-white mt-10">
+               <ArrowLeft color="gray"/>
+            </div>
+            <div className="flex flex-col">
+               <ElementHeader elementInfo={elementInfo}/>
+               <Input inputInfo={inputInfos} form = {form} />
+               <div className="text-[#746e7c] font-sans mt-2">Set a goal if you want a <strong>target</strong>, or leave empty.<br/>Leaving goal empty means you're streaking <strong> till infinity.</strong></div>
+               <div className="mt-5"><Button onClick={()=>{
+                  if (form.habitData.habitName && form.habitData.habitUnit) {
+                     // An object to temporarily store the new habit
+                     const newHabit = {
+                        ...form.habitData,
+                        entries: [],
+                        habitId: crypto.randomUUID(),
+                        habitIcon: FileCodeCorner,
+                        habitIconColor: "#5210bc",
+                        divBackground: "#e9ddff",
+                        streak: 0
+                     };
+                     // Loops through the habit array to check if habit exists to avoid duplication
+                     for(let i = 0; i < habits.length; i++){
+                        if((habits[i]?.habitName === newHabit.habitName)) {
+                           notify("Habit already exists!", "error");
+                           return;
+                        }
+                     };
+                     // Add the new habit object to the habit array
+                     setHabits((prevHabit => {
+                        if(habits === defaultHabits) {
+                           return[newHabit];
+                        }
+                        return [...prevHabit, newHabit];
+                     }));
+                     // Pop up notification and move to the next page
+                     notify("Habit created", "success");
+                     navigate("/habit");
+                  } else {
+                     notify("Fill up the required fields please!", "error");
+                     // if(form.habitData.habitName)
                   };
-
-                  // Loops through the habit array to check if habit exists to avoid duplication
-                  for(let i = 0; i < habits.length; i++){
-                     if((habits[i]?.habitName === newHabit.habitName)) {
-                        notify("Habit already exists!", "error");
-                        return;
-                     }
-                  };
-
-                  // Add the new habit object to the habit array
-                  setHabits((prevHabit => {
-                     if(habits === defaultHabits) {
-                        return[newHabit];
-                     }
-                     return [...prevHabit, newHabit];
-                  }));
-
-                  // Pop up notification and move to the next page
-                  notify("Habit created", "success");
-                  console.log(newHabit);
-                  navigate("/habit");
-               } else {
-                  notify("Fill up the required fields please!", "error");
-                  // if(form.habitData.habitName)
-               };
-               }} buttonInfo={buttonInfo}/></div>
+                  }} buttonInfo={buttonInfo}/>
+               </div>
+            </div>
          </div>
       </div>
   );
