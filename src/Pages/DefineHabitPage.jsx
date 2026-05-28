@@ -105,7 +105,7 @@ export default function DefineHabit() {
                         ...form.habitData,
                         entries: [],
                         habitId: crypto.randomUUID(),
-                        habitIcon: "FileCodeCorner",
+                        habitIcon: FileCodeCorner,
                         habitIconColor: "#5210bc",
                         divBackground: "#e9ddff",
                         streak: 0
