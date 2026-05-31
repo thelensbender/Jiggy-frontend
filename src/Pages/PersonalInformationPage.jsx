@@ -13,9 +13,9 @@ export default function PersonalInformationPage() {
    const navigate = useNavigate();
 
    const elementInfo = {
-      icon: userInfo.profilePicture ? userInfo.profilePicture : User,
+      icon: userInfo.profilePicture ? userInfo.profilePicture : "User",
       editable: {status: true, icon: Pencil},
-      style: {width: "9rem", height: "9rem"}
+      style: "w-24 h-24 md:w-40 md:h-40"
    }
 
    const inputInfos = [
@@ -65,7 +65,7 @@ export default function PersonalInformationPage() {
          textColour: "white",
          onClick: ()=> {
                      if((form.userInfo.fullName === "" && userInfo.fullName === "") || (form.userInfo.username === "" && userInfo.username === "")) {
-                        notify("Fill up the required fields please!", "error");
+                        notify("Fill up the required fields!", "error");
                         return;
                      }
                      setUserInfo((prev) => {
@@ -98,31 +98,31 @@ export default function PersonalInformationPage() {
    // Main div
    <div className="flex justify-center pb-20">
       {/* Element div */}
-      <div className="flex flex-col items-center w-1.3/4">
+      <div className="flex flex-col items-center">
          {/* Heading */}
-         <div className="flex items-center justify-center gap-5">
+         <div className="flex items-start justify-center gap-5">
             <div
                onClick={() => {
                navigate("/settings")
             }}
-            className="cursor-pointer p-3 rounded-full bg-white">
+            className="cursor-pointer p-2 md:p-3 rounded-full bg-white">
                <ArrowLeft color="gray"/>
             </div>
-            <div className="text-4xl font-bold font-sans">Personal Information</div>
+            <div className="text-2xl md:text-4xl font-bold font-sans mb-5">Personal Information</div>
          </div>
-         {/* Elements div */}
+
          <div className="flex flex-col items-center">
             <ElementHeader elementInfo={elementInfo}/>
          </div>
 
 
          {/* Input field */}
-         <div className="mt-10 w-full rounded-3xl bg-white px-10 pb-10">
+         <div className="mt-10 w-full rounded-3xl bg-[#ffffff80] px-3 pb-3 shadow">
                <Input inputInfo={inputInfos}/>
          </div>
 
          {/* Buttons */}
-         <div className="flex flex-col gap-3 w-full mt-10">
+         <div className="flex flex-col items-center gap-3 w-full mt-10">
             {buttonInfo.map((buttonInfo, i) =>{
                return (
                   <Button

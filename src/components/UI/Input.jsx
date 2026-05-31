@@ -50,7 +50,7 @@ export default function Input({inputInfo}) {
       <div>
          {inputInfo.map((EachInputInfo) => {
             return (
-               <div key={EachInputInfo.name} className=" mt-10">
+               <div key={EachInputInfo.name} className="flex flex-col mt-10 mx-2">
                   {/* Input heading */}
                   {EachInputInfo.heading && (
                      <div className="flex text-[#746e7c] text-xs font-sans tracking-widest">
@@ -62,7 +62,7 @@ export default function Input({inputInfo}) {
                   )}
 
                   {/* Input field */}
-                  <div className="flex mt-3 min-w-8/10 justify-center">
+                  <div className="flex mt-3 items-center justify-center">
 
                      {/* Input for Text*/}
                      {EachInputInfo.type !== "radio" ? (
@@ -70,6 +70,7 @@ export default function Input({inputInfo}) {
                            // Long text area
                            <textarea
                               placeholder={EachInputInfo.placeholder}
+                              name = {EachInputInfo.name}
                               type={EachInputInfo.type}
                               onChange={(e) => {
                                  // For collecting habit log
@@ -122,6 +123,7 @@ export default function Input({inputInfo}) {
                               <input
                                  placeholder={EachInputInfo.placeholder}
                                  type={EachInputInfo.type}
+                                 name = {EachInputInfo.name}
                                  onChange={(e) => {
                                     // For habit goal object inside the habitData object
                                     if (EachInputInfo.name === "habitGoal") {
@@ -161,7 +163,7 @@ export default function Input({inputInfo}) {
                                        }
                                  }}
                                  value={getValue(EachInputInfo.name) || "" }
-                                 className="bg-[#f3e6fa76] rounded-md overflow-hidden w-full h-12 py-5 px-5 font-sans text-center  placeholder:text-center placeholder-current::placeholder focus:outline-none focus:ring-1 focus:ring-[#8B5CF6]"/>
+                                 className="bg-[#f3e6fa76] rounded-md overflow-hidden w-full h-6 md:h-12 py-5 px-5 font-sans text-center  placeholder:text-center placeholder-current::placeholder focus:outline-none focus:ring-1 focus:ring-[#8B5CF6]"/>
                            )
 
                      ) : (
@@ -172,7 +174,7 @@ export default function Input({inputInfo}) {
                                  return (
                                     <div key={i}>
                                        <label
-                                          className={`px-18 py-5 rounded-full cursor-pointer text-lg border ${form.habitData[EachInputInfo.name] === EachOption.value ? "bg-[#8B5CF6] text-white" : "bg-white text-[#746e7c]"}`}
+                                          className={`px-12 py-3 text-sm rounded-full cursor-pointer border ${form.habitData[EachInputInfo.name] === EachOption.value ? "bg-[#8B5CF6] text-white" : "bg-white text-[#746e7c]"} md:px-18 md:py-5 md:text-lg`}
                                           onClick={() => setForm(
                                              (prev) => {
                                                 return {...prev, habitData: {...prev.habitData, [EachInputInfo.name]: EachOption.value}}
