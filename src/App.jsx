@@ -24,15 +24,15 @@ import ScrollToTop from "./utils/ScrollBackToTop";
 
 
 export default function App() {
-   // Stores all the habit of the user
-   let storedHabits = localStorage.getItem("habits");
 
-   const [habits, setHabits] = useState(JSON.parse(storedHabits) || []);
+   const [habits, setHabits] = useState(() => {
+      const stored = localStorage.getItem("habits");
+      return stored ? JSON.parse(stored) : [];
+   });
 
-   // Save to local storage whenever habit state changes
    useEffect(() => {
       localStorage.setItem("habits", JSON.stringify(habits));
-   }, [habits])
+   }, [habits]);
 
 
    // Stores the user Information.Check the user local storage first before creating an empty object
@@ -42,7 +42,11 @@ export default function App() {
          fullName: "",
          email: "",
          bio: "",
-         profilePicture: ""
+         profilePicture: "",
+         preference: {
+            theme: "Light",
+            language: "English"
+         }
       }
    );
 

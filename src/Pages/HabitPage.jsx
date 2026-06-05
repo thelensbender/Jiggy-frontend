@@ -1,7 +1,7 @@
 // Hooks
 import {useContext, useState} from "react";
 import UserContext from "../UserContext";
-import {useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 // Icons
 import { Plus, Trash2 } from "lucide-react"
@@ -64,7 +64,7 @@ export default function AllHabit() {
          )}
          <div className="flex justify-center -mt-10">
             {/* Elements div */}
-            <div className="flex flex-col items-center md:w-2/5">
+            <div className="flex flex-col items-center sm:w-3/6 lg:w-2/5 xl:w-2/7">
                {/* All Habits master div*/}
                <div className="mt-10 md:w-full">
                   {/* Habit Preview Headers */}

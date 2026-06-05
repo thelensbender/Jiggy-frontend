@@ -143,7 +143,7 @@ export default function SecurityAndPrivacyPage() {
          <div className='w-full'>
             <div className="flex flex-col items-start mt-10 w-full rounded-3xl bg-white p-5 shadow">
                <div className="text-lg text-[#494454] font-sans font-bold tracking-wide">Privacy Settings</div>
-               <div className='flex flex-col gap-3 w-full mt-5'>
+               <div className='flex font-semibold flex-col gap-3 w-full mt-5'>
                   {privacySettings.map((eachSetting, i) => {
                      return (
                         <div

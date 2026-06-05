@@ -58,13 +58,13 @@ export default function ProfilePage() {
       {
          heading: "NOTIFICATIONS",
          headingSettings: [{text: "Push Notifications", icon: BellRing}, {text: "Streak Reminders", icon: Clock}, {text: "Weekly Digest", icon: Mail}],
-         hasToggle: {confirm: true, value: false}
+         hasToggle: {confirm: true, value: []}
       },
       {
          heading: "PREFERENCE",
          icon: Clock,
          headingSettings: [{text: "Appearance", icon: Palette}, {text: "Language", icon: Globe}],
-         hasToggle: {confirm: false, value: ["Light", "English", ""]}
+         hasToggle: {confirm: false, value: [userInfo.preference?.theme, userInfo.preference?.language]}
       }
    ]
    return (

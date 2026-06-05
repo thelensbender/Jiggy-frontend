@@ -11,6 +11,9 @@ import { toISODate } from "../../utils/dateUtils";
 import { Zap, FileCodeCorner, Dumbbell, EyeOff , Trash2, CheckCheck } from 'lucide-react';
 
 export default function HabitCard({habit, setShowConfirm, setSelectedHabit}) {
+   const today = toISODate(new Date());
+   const isLoggedToday = habit.entries[(habit.entries.length - 1)]?.date === today
+
    const { setForm, formFormat } = useContext(UserContext);
    const navigate = useNavigate();
 
@@ -28,9 +31,8 @@ export default function HabitCard({habit, setShowConfirm, setSelectedHabit}) {
             </div>
          </div>
          {/* Log button or logged icon */}
-         {habit.entries[(habit.entries.length - 1)]?.date === toISODate(new Date()) ?
-            <div className="flex p-5 justify-center items-center"><CheckCheck size={20} color="#8B5CF6
-            "/></div>
+         {isLoggedToday ?
+            <div className="flex p-5 justify-center items-center"><CheckCheck size={20} color="#8B5CF6"/></div>
             :
             <button
                onClick={() => {
