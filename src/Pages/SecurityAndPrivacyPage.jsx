@@ -70,23 +70,23 @@ export default function SecurityAndPrivacyPage() {
    // Main div
     <div className="flex justify-center pb-20">
       {/* Element div */}
-      <div className='w-1.3/4'>
+      <div className="flex flex-col items-center">
          {/* Heading */}
-         <div className="flex items-center justify-center gap-5">
+         <div className="flex items-start justify-center gap-5">
             <div
                onClick={() => {
                navigate("/settings")
             }}
-            className="cursor-pointer p-3 rounded-full bg-white">
+            className="cursor-pointer p-2 md:p-3 rounded-full bg-white">
                <ArrowLeft color="gray"/>
             </div>
-            <div className="text-4xl font-bold font-sans">Security And Privacy</div>
+            <div className="text-2xl md:text-4xl md:text-wrap font-bold font-sans mb-5 ">Security And Privacy</div>
          </div>
 
          {/* Left Section */}
          <div className='w-full'>
             {/* Change of password form */}
-            <div className="flex flex-col items-start mt-10 w-full rounded-3xl bg-white px-10 pb-10 pt-5 shadow">
+            <div className="flex flex-col mt-7 md:mt-10 w-full rounded-3xl bg-[#ffffff80] px-5 pb-10 pt-5 shadow">
                {/* Lock and header */}
                <div className='flex items-center gap-3'>
                   <div className='flex justify-center items-center h-11 w-11 bg-[#8B5CF6] rounded-full'><LockKeyhole color='white'/></div>
@@ -99,21 +99,21 @@ export default function SecurityAndPrivacyPage() {
                      <Input inputInfo={inputInfos}/>
                   </div>
                   {/* Buttons */}
-                  <div className="flex flex-col w-full mt-10"><Button buttonInfo={buttonInfo}/></div>
+                  <div className="flex justify-center w-full mt-10"><Button buttonInfo={buttonInfo}/></div>
                </div>
             </div>
 
             {/* Two-Factor Authentication */}
             <div className="w-full bg-white rounded-4xl shadow mt-5">
-               <div className="flex justify-between items-center p-4.5">
+               <div className="flex justify-between items-center  p-3 md:p-4.5">
                   {/* Setting details and Icon */}
-                  <div className="flex gap-3 items-center px-2 py-1">
+                  <div className="flex gap-3 items-center md:px-2">
                      <div className='bg-[#fff2e1] p-2 rounded-full'>
                         <ShieldCheck color="#7e4f00" size={20}/>
                      </div>
                      <div>
-                        <div className="font-sans font-bold">Two-Factor Authentication</div>
-                        <div className='text-gray-500'>Enhanced security for your account</div>
+                        <div className="font-sans font-bold">2FA</div>
+                        <div className='text-gray-500'>Two-Step Verification</div>
                      </div>
                   </div>
 
@@ -124,33 +124,33 @@ export default function SecurityAndPrivacyPage() {
 
             {/* Blocked Users */}
             <div className="w-full bg-white rounded-4xl shadow mt-5">
-               <div className="flex justify-between items-center p-4.5">
+               <div className="flex justify-between items-center p-3 md:p-4.5">
                   {/* Setting details and Icon */}
-                  <div className="flex gap-3 items-center px-2 py-1">
+                  <div className="flex gap-3 items-center md:px-2">
                      <div className='bg-[#fff2e1] p-2 rounded-full'>
                         <Ban color="#ba1a1a" size={20}/>
                      </div>
                      <div>
-                        <div className="font-sans font-bold">Blocked Users</div>
+                        <div className="cursor-pointer font-sans font-bold">Blocked Users</div>
                      </div>
                   </div>
 
-                  <button className='text-sm text-gray-600 font-sans border rounded-full px-4 py-2 cursor-pointer'>Manage List</button>
+                  <button className='text-sm text-gray-600 font-sans border rounded-full px-2 md:px-4 py-2 cursor-pointer'>Manage List</button>
                </div>
             </div>
          </div>
 
-         <div className=''>
-            <div className="flex flex-col items-start mt-10 w-full rounded-3xl bg-white px-10 pb-10 pt-5 shadow">
+         <div className='w-full'>
+            <div className="flex flex-col items-start mt-10 w-full rounded-3xl bg-white p-5 shadow">
                <div className="text-lg text-[#494454] font-sans font-bold tracking-wide">Privacy Settings</div>
-               <div className='flex flex-col gap-3 w-full mt-5'>
+               <div className='flex font-semibold flex-col gap-3 w-full mt-5'>
                   {privacySettings.map((eachSetting, i) => {
                      return (
                         <div
                            key={i}
                            className='flex justify-between'>
                               <div>{eachSetting.detail}</div>
-                              <div><Toggle/></div>
+                              <Toggle/>
                         </div>
                      )
                   })}

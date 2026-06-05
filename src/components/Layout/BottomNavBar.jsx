@@ -3,8 +3,7 @@ import { Calendar1, Layers, ChartColumnIncreasing, Settings , Icon} from 'lucide
 import { useNavigate, NavLink } from "react-router-dom";
 
 export default function BottomNavBar() {
-   const navigate = useNavigate();
-
+   // Describe the data of each tab button
    const buttomNav = [
       {
          tabName: "Today",
@@ -29,9 +28,9 @@ export default function BottomNavBar() {
    ]
   return (
    // Main div
-   <div className="w-full fixed bottom-0 bg-white h-20 px-40 z-10">
+   <div className="flex justify-center items-center w-full fixed bottom-0 bg-white md:h-20 md:px-40 z-10">
       {/* Grouped tab div */}
-      <div className="flex items-center justify-between px-3 h-full">
+      <div className="flex items-center justify-between gap-5 md:gap-10 lg:gap-15 xl:gap-25 h-full">
          {buttomNav.map((eachTab, i) => {
             // Each Tab
             return (

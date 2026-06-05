@@ -8,7 +8,7 @@ import Button from "../components/UI/Button";
 
 export default function FirstStreak() {
    const navigate = useNavigate();
-   const { form, setForm, formFormat} = useContext(UserContext);
+   const { setForm, formFormat} = useContext(UserContext);
    // Habit Suggestion for New user
    const quickStarts = [
       {habitName: "Coding", habitUnit: "days", habitIcon: FileCodeCorner, habitGoal: {exist: true, value: 30}},
@@ -26,7 +26,7 @@ export default function FirstStreak() {
       // Main div
       <div className="flex justify-center">
          {/* Elements div */}
-         <div className="flex flex-col justify-items-center w-1/4">
+         <div className="flex flex-col justify-items-center">
 
             {/* Circles Div */}
             <div className="flex justify-center">
@@ -42,7 +42,7 @@ export default function FirstStreak() {
             </div>
 
             {/* Add habit button */}
-            <div className="w-full mt-8"><Button onClick = {()=> {
+            <div className="flex justify-center w-full mt-8"><Button onClick = {()=> {
                navigate("/define-habit");
                setForm(formFormat)}} buttonInfo = {buttonInfo}/></div>
 

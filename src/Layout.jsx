@@ -5,12 +5,12 @@ import { Outlet } from "react-router-dom";
 
 export default function Layout() {
   return (
-    <div className="select-none">
-      <TopNavBar />
-      <div className="pt-25 pb-10">
-         <Outlet />
+      <div className="select-none">
+         <TopNavBar />
+         <div className="mx-2 pt-25 mb-30">
+            <Outlet />
+         </div>
+         <BottomNavBar />
       </div>
-      <BottomNavBar />
-    </div>
   )
 }

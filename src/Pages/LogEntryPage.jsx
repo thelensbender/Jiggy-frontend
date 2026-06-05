@@ -100,7 +100,7 @@ export default function LogEntry() {
       header : "Skip for Today?",
       info: (habitName) =>(
             <>
-               You're about to skip<span className='text-[#8B5CF6]  font-bold'> {(habitName).slice(0, 25) + "..."} </span>for today. Skipping will <strong>break</strong> your current streak. Are you sure?
+               You're about to skip<span className='text-[#8B5CF6]  font-bold'> {habitName.length > 20 ? ((habitName).slice(0, 20) + "...") : habitName} </span>for today. Skipping will <strong>break</strong> your current streak. Are you sure?
             </>
       ),
       buttonInfo: [
@@ -115,7 +115,7 @@ export default function LogEntry() {
             backgroundColor: "#8B5CF6",
             textColour: "white",
             onClick: () => {
-               notify(`Skipped ${(habitName).slice(0, 20) + "..."} for today`, "success");
+               notify(`Skipped ${habitName.length > 20 ? ((habitName).slice(0, 20) + "...") : habitName} for today`, "success");
                navigate("/habit");
             }
          }
@@ -131,44 +131,36 @@ export default function LogEntry() {
          <div className="flex items-center justify-center pb-20">
             {/* Elements div */}
 
-            <div className="flex items-start w-1/4 -mt-10 mb-13">
-               <div
-                  onClick={() => {
-                     navigate(-1)
-                  }}
-                  className="cursor-pointer p-3 rounded-full bg-white mt-10">
-                  <ArrowLeft color="gray"/>
-               </div>
-               <div className="flex flex-col">
-                  {/* Element Header */}
-                  <ElementHeader elementInfo={elementInfo}/>
 
-                  {/* A week progress(Show from Monday to Sunday) */}
-                  <div className="flex w-full justify-between mt-10">
-                     {week.map((day, i) =>{
-                        return (
-                           <div key={i} className="flex flex-col gap-1 items-center">
-                              <div className="text-xs text-[#746e7c] font-sans">{day}</div>
-                              <div className="flex justify-center items-center rounded-full h-8 w-8 bg-white border-2 border-[#8B5CF6]"><Check size={20} color="#8B5CF6"/></div>
-                           </div>
-                        )
-                     })}
-                  </div>
-                  {/* Input field */}
-                  <div className="mt-10 w-full rounded-3xl bg-white px-10  pb-10">
-                        <Input inputInfo={inputInfos}/>
-                  </div>
-                  {/* Buttons */}
-                  <div className="flex flex-col gap-3 w-full mt-10">
-                     {buttonInfoLog.map((buttonInfo, i) =>{
-                        return (
-                           <Button
-                           key={i}
-                           onClick={buttonInfo.onClick}
-                           buttonInfo={buttonInfo}/>
-                        )
-                     })}
-                  </div>
+            <div className="flex flex-col mb-13">
+               {/* Element Header */}
+               <ElementHeader elementInfo={elementInfo}/>
+
+               {/* A week progress(Show from Monday to Sunday) */}
+               <div className="flex w-full justify-between mt-10">
+                  {week.map((day, i) =>{
+                     return (
+                        <div key={i} className="flex flex-col gap-1 items-center">
+                           <div className="text-xs text-[#746e7c] font-sans">{day}</div>
+                           <div className="flex justify-center items-center rounded-full h-8 w-8 bg-white border-2 border-[#8B5CF6]"><Check size={20} color="#8B5CF6"/></div>
+                        </div>
+                     )
+                  })}
+               </div>
+               {/* Input field */}
+               <div className="mt-10 w-full rounded-3xl bg-white px-10  pb-10">
+                     <Input inputInfo={inputInfos}/>
+               </div>
+               {/* Buttons */}
+               <div className="flex flex-col items-center gap-3 w-full mt-10">
+                  {buttonInfoLog.map((buttonInfo, i) =>{
+                     return (
+                        <Button
+                        key={i}
+                        onClick={buttonInfo.onClick}
+                        buttonInfo={buttonInfo}/>
+                     )
+                  })}
                </div>
             </div>
          </div>

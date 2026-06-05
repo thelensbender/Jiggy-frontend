@@ -9,7 +9,7 @@
 export default function Button({buttonInfo, onClick}) {
    const Icon = buttonInfo.icon;
   return (
-   <div className="w-full">
+   <div className="flex justify-center items-center w-5/6 md:w-full">
       {/* button */}
       <div
       onClick = {onClick}

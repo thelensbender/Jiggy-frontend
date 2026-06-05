@@ -24,7 +24,7 @@ export default function Dashboard() {
 
    const { habits, setHabits, setForm, formFormat, notify } = useContext(UserContext);
    const buttonInfoAdd = {
-      text: "Add new Habit",
+      text: habits.length > 0 ? "Add new Habit" : "Add your First Habit",
       icon: Plus,
       backgroundColor: "#8B5CF6",
       textColour: "white"
@@ -34,7 +34,7 @@ export default function Dashboard() {
       header : "Delete this Habit?",
       info: (habitName) =>(
             <>
-               You're about to delete<span className='text-[#8B5CF6]  font-bold'> {(habitName).slice(0, 25) + "..."} </span> <strong>permanently</strong>!. This means <strong>you will lose all your progress</strong>. Are you sure?
+               You're about to delete<span className='text-[#8B5CF6]  font-bold'> {habitName.length > 20 ? ((habitName).slice(0, 20) + "...") : habitName} </span> <strong>permanently</strong>!. This means <strong>you will lose all your progress</strong>. Are you sure?
             </>
       ),
       buttonInfo: [
@@ -52,7 +52,7 @@ export default function Dashboard() {
                setHabits((prev) =>
                   prev.filter((habit) => habit.habitId !== selectedHabit.habitId)
                );
-               notify(`Deleted ${(selectedHabit.habitName).slice(0, 20) + "..."} successfully`, "success");
+               notify(`Deleted ${selectedHabit.habitName.length > 20 ? ((selectedHabit.habitName).slice(0, 20) + "...") : selectedHabit.habitName} successfully`, "success");
                setShowConfirm(false);
             }
          }
@@ -65,24 +65,28 @@ export default function Dashboard() {
          {showConfirm && (
             <ConfirmLayout confirmDetails = {confirmDetails} habit = {selectedHabit} setShowConfirm = {setShowConfirm} />
          )}
-         <div className="flex justify-center mb-3">
+         <div className="flex justify-center">
             {/* Elements div */}
-            <div className="flex flex-col items-center w-1/4">
+            <div className="flex flex-col items-center">
                <div>
-                  <div className="text-4xl font-bold font-sans">{habits.length === 0 ? "Build your first streak today 🔥" : "Keep the streak alive🔥"}</div>
-                  <div className="text-[#746e7c] font-sans">Tuesday, April 21</div> {/* Date */}
+                  {/* Dashboard motivaion */}
+                  <div className="text-2xl text-center md:text-left font-bold font-sans md:text-4xl">{habits.length === 0 ? "Build your first streak today 🔥" : "Keep the streak alive🔥"}</div>
+                  {/* Date */}
+                  <div className="text-[#746e7c] text-center md:text-left font-sans md:text-xl">Tuesday, April 21</div>
                </div>
 
-               <div className="w-30"><div className=  "w-full"></div></div> {/* Fire div. I want to add animation after */}
+               {/* Fire div. I want to add animation after */}
+               <div className="w-30"><div className="w-full"></div></div>
 
-               <div className={`flex justify-center items-center rounded-full h-18 w-18  mt-10 shadow-lg ${habits.length === 0 ? 'bg-black': 'bg-[#8B5CF6]'} `}><Zap color="white" size={40}></Zap></div> {/* Bolt div */}
+                {/* Bolt div */}
+               <div className={`flex justify-center items-center rounded-full h-18 w-18  mt-10 shadow-lg ${habits.length === 0 ? 'bg-black': 'bg-[#8B5CF6]'} `}><Zap color="white" size={40}></Zap></div>
 
                {/* Habits preview master div*/}
-               <div className="w-full m-10">
+               <div className="mt-10 md:w-full">
                   {/* Habit Preview Headers */}
                   {  habits.length !== 0 ?
                      <div className="flex justify-between w-full">
-                        <div className="text-lg text-[#494454] font-sans font-bold tracking-widest">YOUR HABITS</div>
+                        <div className="text-sm text-[#494454] font-sans font-bold tracking-widest md:text-lg">YOUR HABITS</div>
                         <div
                         onClick={()=> {
                            navigate("/habit")
@@ -94,7 +98,7 @@ export default function Dashboard() {
                   }
 
                   {/* Habits preview*/}
-                  <div className="flex flex-col gap-5 mt-5">
+                  <div className="flex flex-col gap-3 mt-5 md:gap-5">
                      {habits.slice(0, 3).map((eachHabit, i) => {
                         // const progress = Math.round((eachHabit.streak / eachHabit.habitGoal.value) * 100);
 
@@ -108,7 +112,7 @@ export default function Dashboard() {
                   </div>
 
                   {/* Add habit button */}
-                  <div className="w-full mt-8"><Button onClick={()=>{
+                  <div className="flex justify-center w-full mt-8"><Button onClick={()=>{
                      setForm(formFormat);
                      navigate("/define-habit");
                      }} buttonInfo = {buttonInfoAdd}/></div>
