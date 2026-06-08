@@ -1,6 +1,6 @@
 // Hooks
 import {useContext} from "react";
-import UserContext from "../../UserContext";
+import UserContext from "../../Context/UserContext";
 import {useNavigate } from "react-router-dom";
 
 // Functions and utilities

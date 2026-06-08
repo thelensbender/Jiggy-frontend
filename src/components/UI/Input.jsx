@@ -23,7 +23,7 @@
    //    ]
    // }]
 import {useContext} from "react";
-import UserContext from "../../UserContext";
+import UserContext from "../../Context/UserContext";
 
 
 export default function Input({inputInfo}) {

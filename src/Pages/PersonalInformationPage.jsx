@@ -1,16 +1,20 @@
 import {useContext} from "react";
-import UserContext from "../UserContext";
+import UserContext from "../Context/UserContext";
 import {useNavigate } from "react-router-dom";
+import { useWallet } from "../Context/WalletContext";
 
 import ElementHeader from "../components/UI/ElementHeader";
 import Input from "../components/UI/Input";
 import Button from "../components/UI/Button";
 
-import { User, Pencil, Save, ArrowLeft } from 'lucide-react';
+import { User, Pencil, Save, ArrowLeft, Wallet } from 'lucide-react';
 
 export default function PersonalInformationPage() {
    const { userInfo, notify, setUserInfo, form, setForm, formFormat } = useContext(UserContext);
    const navigate = useNavigate();
+   const { connectWallet, disconnectWallet, isConnecting, shortAddress, walletAddress } = useWallet();
+   console.log("connectWallet:", connectWallet)
+   console.log("isConnecting:", isConnecting)
 
    const elementInfo = {
       icon: userInfo.profilePicture ? userInfo.profilePicture : "User",
@@ -57,7 +61,7 @@ export default function PersonalInformationPage() {
       }
    ]
 
-   const buttonInfo = [
+   const buttonInfoSaveCancel = [
       {
          text: "Save Changes",
          icon: Save,
@@ -94,6 +98,17 @@ export default function PersonalInformationPage() {
       }
    ]
 
+   const buttonInfoAddWallet = [
+      {
+         text: isConnecting ? "Connecting..." : shortAddress ? shortAddress : "Connect Wallet",
+         icon: Wallet,
+         disabled: isConnecting,
+         backgroundColor: "#8B5CF6",
+         textColour: "white",
+         onClick: () => walletAddress ? disconnectWallet() : connectWallet()
+      }
+   ]
+
   return (
    // Main div
    <div className="flex justify-center pb-20">
@@ -101,6 +116,7 @@ export default function PersonalInformationPage() {
       <div className="flex flex-col items-center">
          {/* Heading */}
          <div className="flex items-start justify-center gap-5">
+            {/* Back button */}
             <div
                onClick={() => {
                navigate("/settings")
@@ -118,12 +134,26 @@ export default function PersonalInformationPage() {
 
          {/* Input field */}
          <div className="mt-10 w-full rounded-3xl bg-[#ffffff80] px-3 pb-3 shadow">
-               <Input inputInfo={inputInfos}/>
+            <Input inputInfo={inputInfos}/>
+
+            {/* Button for Add Wallet */}
+            <div className="flex flex-col items-center gap-3 w-full mt-10">
+               {buttonInfoAddWallet.map((buttonInfo, i) =>{
+                  return (
+                     <Button
+                     key={i}
+                     onClick={buttonInfo.onClick}
+                     disabled = {buttonInfo.disabled}
+                     buttonInfo={buttonInfo}/>
+                  )
+               })}
+            </div>
          </div>
 
-         {/* Buttons */}
+
+         {/* Buttons or Save and Cancel*/}
          <div className="flex flex-col items-center gap-3 w-full mt-10">
-            {buttonInfo.map((buttonInfo, i) =>{
+            {buttonInfoSaveCancel.map((buttonInfo, i) =>{
                return (
                   <Button
                   key={i}

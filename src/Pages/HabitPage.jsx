@@ -1,6 +1,6 @@
 // Hooks
 import {useContext, useState} from "react";
-import UserContext from "../UserContext";
+import UserContext from "../Context/UserContext.js";
 import {useNavigate} from "react-router-dom";
 
 // Icons
@@ -71,7 +71,7 @@ export default function AllHabit() {
                   <div className="flex justify-between items-center">
                      <div className="flex flex-col justify-center">
                         <div className="text-lg md:text-2xl text-[#494454] font-sans font-bold tracking-widest">ALL HABITS</div>
-                        <div className="text-[#5515bd] font-san text-sm md:text-base">Stay Focused, Stay Kinetic!</div>
+                        <div className="text-[#5515bd] font-san text-sm md:text-base">Stay Focused, Stay Jiggy!</div>
                      </div>
                      {/* Fire div. I want to add animation after. */}
                      <div className={`flex justify-center items-center rounded-full h-14 w-14 shadow-lg ${habits.length === 0 ? 'bg-black': 'bg-[#8B5CF6]'}`}>

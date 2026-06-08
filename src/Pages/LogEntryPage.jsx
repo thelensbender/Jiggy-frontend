@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {useContext} from "react";
-import UserContext from "../UserContext";
+import UserContext from "../Context/UserContext.js";
 import { useParams } from "react-router-dom";
 import {useNavigate } from "react-router-dom";
 
@@ -54,6 +54,7 @@ export default function LogEntry() {
    }]
 
    const week = ["M", "T", "W", "T", "F", "S", "S"];
+   const habitLog = {...form.entries};
 
    const buttonInfoLog = [
       {
@@ -65,6 +66,11 @@ export default function LogEntry() {
                      setHabits((prev) => {
                         return prev.map((habit) => {
                            if(habit.habitId === habitId) {
+                              if(habitLog === habit.entries[habit.entries.length - 1]) {
+                                 notify(`Logged for the day!`, "success");
+                                 navigate("/habit");
+                                 return habit;
+                              }
                               const newentry = [
                                  ...habit.entries, habitLog
                               ]
@@ -92,7 +98,6 @@ export default function LogEntry() {
       }
    ]
 
-   const habitLog = {...form.entries}
 
    // The details of the confirmation pop-up
    const confirmDetails ={
