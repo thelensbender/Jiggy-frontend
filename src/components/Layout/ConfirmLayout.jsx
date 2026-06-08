@@ -1,4 +1,4 @@
-import UserContext from "../../UserContext";
+import UserContext from "../../Context/UserContext";
 
 
 import { X } from 'lucide-react';

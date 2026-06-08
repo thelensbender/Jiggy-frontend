@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
-import UserContext from "./UserContext"
+import UserContext from "./Context/UserContext"
 
 // External Functions
 import {calculateStreak} from "./utils/streakUtils"
@@ -24,7 +24,7 @@ import ScrollToTop from "./utils/ScrollBackToTop";
 
 
 export default function App() {
-
+   // Habit state that stores all user habits
    const [habits, setHabits] = useState(() => {
       const stored = localStorage.getItem("habits");
       return stored ? JSON.parse(stored) : [];

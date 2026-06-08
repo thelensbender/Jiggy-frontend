@@ -1,6 +1,6 @@
 // Hooks
 import { useContext, useState } from "react";
-import UserContext from "../UserContext";
+import UserContext from "../Context/UserContext.js";
 import { useNavigate } from "react-router-dom";
 
 // Icons

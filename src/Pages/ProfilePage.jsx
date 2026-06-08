@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import UserContext from "../UserContext";
+import UserContext from "../Context/UserContext.js";
 import {useNavigate } from "react-router-dom";
 
 // Icon
@@ -37,7 +37,7 @@ export default function ProfilePage() {
       {
          id: "card-1",
          cardTitle: "Personal Information",
-         cardSubTitle: "Email, Username, Bio",
+         cardSubTitle: "Email, Username, Bio, Wallet Address",
          icon: User,
          iconColor: "#8B5CF6",
          bgColor: "#e9ddff",

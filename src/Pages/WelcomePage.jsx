@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import UserContext from "../UserContext";
+import UserContext from "../Context/UserContext";
 
 import {ArrowRight, Check} from "lucide-react";
 import Input from "../components/UI/Input";
