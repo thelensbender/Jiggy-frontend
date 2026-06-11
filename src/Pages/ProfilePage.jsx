@@ -84,7 +84,7 @@ export default function ProfilePage() {
                         onClick={()=>{
                            navigate(eachCardInfo.navigate);
                         }}
-                        className="cursor-pointer flex items-center justify-between w-full py-2 px-2 md:py-3 md:px-5 bg-[#ece3f494] rounded-full">
+                        className="cursor-pointer flex items-center justify-between w-full py-2 px-2 md:py-3 md:px-5 bg-[#ece3f494] rounded-full  transition-all duration-200 hover:bg-[#d2cbd8]">
                         <div className="flex items-center justify-center gap-6 w-full">
                            <CircleIcon key = {eachCardInfo.id} circleIconInfo = {eachCardInfo}/>
                            <div className="w-full">

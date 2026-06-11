@@ -6,6 +6,7 @@ import {useNavigate } from "react-router-dom";
 
 // Icons
 import { Check, Dumbbell, ArrowLeft, Calendar } from 'lucide-react';
+import confetti from "canvas-confetti";
 
 // Components
 import ElementHeader from "../components/UI/ElementHeader.jsx";
@@ -15,6 +16,7 @@ import ConfirmLayout from "../components/Layout/ConfirmLayout.jsx";
 
 export default function LogEntry() {
    const [showConfirm, setShowConfirm] = useState(false);
+   const [milestoneModal, setMilestoneModal] = useState(null);
 
    const { habits, setHabits, form, notify, calculateStreak } = useContext(UserContext);
    const navigate = useNavigate();
@@ -63,6 +65,7 @@ export default function LogEntry() {
          backgroundColor: "#8B5CF6",
          textColour: "white",
          onClick: ()=> {
+            let milestoneHit = null;
                      setHabits((prev) => {
                         return prev.map((habit) => {
                            if(habit.habitId === habitId) {
@@ -71,9 +74,12 @@ export default function LogEntry() {
                                  navigate("/habit");
                                  return habit;
                               }
-                              const newentry = [
-                                 ...habit.entries, habitLog
-                              ]
+                              const newentry = [...habit.entries, habitLog];
+                              const newStreak = calculateStreak(newentry);
+
+                              if (newStreak === 7 || newStreak === 30 || newStreak === 100) {
+                                 milestoneHit = newStreak;
+                              }
                               return {...habit,
                                  entries: newentry,
                                  streak: calculateStreak(newentry)
@@ -82,6 +88,14 @@ export default function LogEntry() {
                               return habit;
                         })
                      });
+                     if (milestoneHit) {
+                        confetti({
+                           particleCount: 200,
+                           spread: 90,
+                           origin: { y: 0.6 }
+                        });
+                        setMilestoneModal(milestoneHit);
+                     }
                      notify(`You are amazing!`, "success");
                      navigate("/habit");
                   }

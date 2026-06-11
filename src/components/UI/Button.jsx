@@ -9,7 +9,7 @@
 export default function Button({buttonInfo, onClick, disabled}) {
    const Icon = buttonInfo.icon;
   return (
-   <div className="flex justify-center items-center w-5/6 md:w-full">
+   <div className="flex justify-center items-center w-5/6 md:w-full transition-all duration-200 hover:opacity-80">
       {/* button */}
       <div
       onClick = {onClick}

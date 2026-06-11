@@ -70,16 +70,23 @@ export default function Dashboard() {
             <div className="flex flex-col items-center">
                <div>
                   {/* Dashboard motivaion */}
-                  <div className="text-2xl text-center md:text-left font-bold font-sans md:text-4xl">{habits.length === 0 ? "Build your first streak today 🔥" : "Keep the streak alive🔥"}</div>
+                  <div className="text-2xl text-center md:text-left font-bold font-sans md:text-4xl">{habits.length === 0 ? "Build your first streak today🔥" : "Keep the streak alive🔥"}</div>
                   {/* Date */}
-                  <div className="text-[#746e7c] text-center md:text-left font-sans md:text-xl">Tuesday, April 21</div>
+                  <div className="text-[#746e7c] text-center md:text-left font-sans md:text-xl">
+                     {new Date("2026-06-11").toLocaleDateString("en-US", {
+                     weekday: "long",
+                     day: "numeric",
+                     month: "long",
+                     year: "numeric"
+                     })}
+                  </div>
                </div>
 
                {/* Fire div. I want to add animation after */}
                <div className="w-30"><div className="w-full"></div></div>
 
                 {/* Bolt div */}
-               <div className={`flex justify-center items-center rounded-full h-18 w-18  mt-10 shadow-lg ${habits.length === 0 ? 'bg-black': 'bg-[#8B5CF6]'} `}><Zap color="white" size={40}></Zap></div>
+               <div className={`flex justify-center items-center rounded-full h-18 w-18  mt-10 shadow-lg ${habits.length === 0 ? 'bg-black': 'bg-[#8B5CF6] glow floating'} `}><Zap color="white" size={40}></Zap></div>
 
                {/* Habits preview master div*/}
                <div className="mt-10 md:w-full">

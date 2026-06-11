@@ -11,3 +11,36 @@ body::-webkit-scrollbar-thumb {
   background: #ccc;
   border-radius: 10px;
 }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.floating {
+  animation: float 3s ease-in-out infinite;
+}
+
+.glow {
+  box-shadow: 0 0 25px 10px rgba(139, 92, 246, 0.4);
+}
+
+@keyframes thunder {
+  0%, 90%, 100% { box-shadow: none; }
+  92% { box-shadow: 0 0 40px 15px rgba(139, 92, 246, 0.9); }
+  94% { box-shadow: none; }
+  96% { box-shadow: 0 0 40px 15px rgba(139, 92, 246, 0.9); }
+}
+
+.thunder {
+  animation: thunder 3s ease-in-out infinite;
+}
+
+@keyframes fire {
+  0%, 100% { box-shadow: 0 0 10px 4px rgba(255, 100, 0, 0.3), 0 0 20px 8px rgba(255, 200, 0, 0.15); }
+  50% { box-shadow: 0 0 15px 6px rgba(255, 80, 0, 0.5), 0 0 25px 10px rgba(255, 200, 0, 0.2); }
+}
+
+.fire {
+  animation: fire 2s ease-in-out infinite;
+}
