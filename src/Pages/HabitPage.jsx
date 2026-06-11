@@ -62,9 +62,9 @@ export default function AllHabit() {
          {showConfirm && (
             <ConfirmLayout confirmDetails = {confirmDetails} habit = {selectedHabit} setShowConfirm = {setShowConfirm} />
          )}
-         <div className="flex justify-center -mt-10">
+         <div className="flex justify-center">
             {/* Elements div */}
-            <div className="flex flex-col items-center sm:w-3/6 lg:w-2/5 xl:w-2/7">
+            <div className="flex flex-col items-center">
                {/* All Habits master div*/}
                <div className="mt-10 md:w-full">
                   {/* Habit Preview Headers */}
@@ -74,7 +74,7 @@ export default function AllHabit() {
                         <div className="text-[#5515bd] font-san text-sm md:text-base">Stay Focused, Stay Jiggy!</div>
                      </div>
                      {/* Fire div. I want to add animation after. */}
-                     <div className={`flex justify-center items-center rounded-full h-14 w-14 shadow-lg ${habits.length === 0 ? 'bg-black': 'bg-[#8B5CF6]'}`}>
+                     <div className={`flex justify-center items-center rounded-full h-14 w-14 shadow-lg ${habits.length === 0 ? 'bg-black': 'glow floating bg-[#8B5CF6]'}`}>
                         <div className="text-2xl">🔥</div>
                      </div>
                   </div>

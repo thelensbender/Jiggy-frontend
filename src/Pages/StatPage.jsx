@@ -4,7 +4,7 @@ import UserContext from "../Context/UserContext";
 import { ChartColumnIncreasing, Flame, ClockArrowUp, ClockFading, ChevronRight, Medal, Lock , Milestone} from 'lucide-react';
 import ElementHeader from '../components/UI/ElementHeader';
 import CircleIcon from "../components/UI/CircleIcon.jsx";
-import dummyGraph from "../assets/Images/image.png"
+import comingSoon from "../assets/Images/coming_soon.png"
 
 
 export default function StatTab() {
@@ -23,31 +23,37 @@ export default function StatTab() {
          id: "history-1",
          objID: "history",
          historyTitle: "Perfect Week",
-         historySubTitle: "Oct 12 - Oct 19",
+         historySubTitle: "No data",
+         // historySubTitle: "Oct 12 - Oct 19",
          icon: Flame,
          iconColor: '#743CDA',
          bgColor: "#e9ddff",
-         historyDetails: {days: "7 days", status: "COMPLETED"}
+         historyDetails: {days: "0 day", status: "Not started"},
+         // historyDetails: {days: "7 days", status: "COMPLETED"}
       },
       {
          id: "history-2",
          objID: "history",
          historyTitle: "Long Run",
-         historySubTitle: "Sep 20 - Oct 11",
+         historySubTitle: "No data",
+         // historySubTitle: "Oct 12 - Oct 19",
          icon: ClockArrowUp,
          iconColor: "#743CDA",
          bgColor: "#e9ddff",
-         historyDetails: {days: "21 days", status: "ENDED"}
+         historyDetails: {days: "0 day", status: "Not started"}
+         // historyDetails: {days: "21 days", status: "ENDED"}
       },
       {
          id: "history-3",
          objID: "history",
          historyTitle: "Quick Start",
-         historySubTitle: "Sep 15 - Sep 18",
+         historySubTitle: "No data",
+         // historySubTitle: "Oct 12 - Oct 19",
          icon: ClockFading,
          iconColor: "#743CDA",
          bgColor: "#e9ddff",
-         historyDetails: {days: "3 days", status: "ENDED"}
+         historyDetails: {days: "0 day", status: "Not started"}
+         // historyDetails: {days: "3 days", status: "ENDED"}
       }
    ]
 
@@ -59,7 +65,7 @@ export default function StatTab() {
          objID: "achievement",
          achievementTitle: "Bronze",
          achievementSubTitle: "7 days",
-         target: 7,
+         target: 5,
          icon: Lock,
          iconColor: '#743CDA',
          bgColor: "#e9ddff"
@@ -89,6 +95,11 @@ export default function StatTab() {
       achievementStatus: achievement.activeStreak >= eachAchievement.target
    }))
 
+   const nextMilestone = () => {
+      const NextMilestone = nftAchievement.find(m => achievement.activeStreak < m.target)
+      return NextMilestone;
+   }
+
    return (
       // Main div
       <div className="flex justify-center">
@@ -99,8 +110,8 @@ export default function StatTab() {
                <ElementHeader elementInfo={ElementInfo} />
             </div>
             {/* Active and best streak count */}
-            <div className="flex gap-4 items-center justify-between">
-               <div className="flex flex-col justify-center bg-white p-5 w-30 h-30 md:w-50 rounded-lg shadow">
+            <div className="flex gap-8 md:gap-12 items-center justify-between">
+               <div className="flex flex-col justify-center bg-white p-5 w-30 h-30 md:w-55 rounded-lg shadow">
                   <div className="text-base md:text-lg text-[#494454] font-sans font-bold tracking-widest">Active Streak</div>
                   <div className="flex items-end gap-1">
                      <div className="text-[#743cda] text-2xl md:text-3xl font-medium font-sans">{achievement.activeStreak}</div>
@@ -118,7 +129,10 @@ export default function StatTab() {
 
 
             {/* GRAPH SPACE */}
-            <div className='flex w-100'><img src={dummyGraph} alt="" className='w-full'/></div>
+            <div className="w-full flex flex-col justify-center items-start">
+               <div className="text-sm font-sans font-semibold tracking-widest md:text-lg">Graphical Daily Activities</div>
+               <div className='floating flex w-100 md:w-130'><img src={comingSoon} alt="" className='w-full'/></div>
+            </div>
 
             {/* Streak history */}
             <div className="w-full flex flex-col justify-center items-start">
@@ -128,7 +142,7 @@ export default function StatTab() {
                      return (
                         <div
                            key={i}
-                           className="flex items-center justify-between w-full py-2 px-2 md:py-3 md:px-5 bg-[#ece3f494] rounded-full hover:shadow-xl">
+                           className="flex items-center justify-between w-full py-2 px-2 md:py-3 md:px-5 bg-[#ece3f494] rounded-full transition-all duration-200 hover:shadow-xl">
                            <div className="flex items-center justify-center gap-6 w-full">
                               <CircleIcon key = {eachHistory.id} circleIconInfo = {eachHistory}/>
                               <div className="w-full">
@@ -155,19 +169,19 @@ export default function StatTab() {
                         {/* Icon circle background */}
                         <div className="flex justify-center items-center bg-[#e9ddff] rounded-full h-13 w-13 lg:h-16 lg:w-16"><Medal color={'#743CDA'} size={25}/></div>
                         <div>
-                           <div className="text-[#1d1a23] font-semibold text-base md:text-lg">Silver Milestone</div>
-                           <div className="text-base text-[#717171] text-nowrap">12/30 days</div>
+                           <div className="text-[#1d1a23] font-semibold text-base md:text-lg">{nextMilestone().achievementTitle} Milestone</div>
+                           <div className="text-base text-[#717171] text-nowrap">{achievement.activeStreak}/{nextMilestone().target} days</div>
                         </div>
                      </div>
                      
                      {/* Progress percent */}
-                     <div className="flex justify-center text-sm items-center w-12 h-7 rounded-full bg-red-200">40%</div>
+                     <div className="flex justify-center text-sm items-center w-12 h-7 rounded-full bg-[#d8c3ff]">{Math.round((achievement.activeStreak/nextMilestone().target)*100)}%</div>
                   </div>
                   {/* Progress bar */}
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                     <div className="h-2 rounded-full" style={{ width: "40%", backgroundColor: "#743CDA" }}></div>
+                  <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
+                     <div className={`${(Math.round((achievement.activeStreak/nextMilestone().target)*100) === 0) ? "" : "glow"} h-2 rounded-full`} style={{ width: `${Math.round((achievement.activeStreak/nextMilestone().target)*100)}%`, backgroundColor: "#743CDA" }}></div>
                   </div>
-                  <div className="font-semibold text-sm md:text-base text-[#717171] text-nowrap">18 days until Silver NFT unlock</div>
+                  <div className="font-semibold text-sm md:text-base text-[#717171] text-nowrap">{nextMilestone().target - achievement.activeStreak} {(nextMilestone().target - achievement.activeStreak) > 1 ? "days" : "day"} until {nextMilestone().achievementTitle} NFT unlock</div>
                </div>
             </div>
 
@@ -178,7 +192,7 @@ export default function StatTab() {
                <div className="flex gap-3 mt-5">
                   {nftAchievement.map((eachAchievement, i) => {
                      return (
-                        <div key = {i} className={`flex flex-col justify-center items-center shadow-xl px-10 py-3 rounded-2xl ${eachAchievement.achievementStatus === true ? "opacity-100" : "opacity-50"} ${eachAchievement.achievementStatus === true ? "border border-gray-300" : ""} `}>
+                        <div key = {i} className={`flex flex-col justify-center items-center shadow-xl px-10 py-3 rounded-2xl ${eachAchievement.achievementStatus === true ? " glow opacity-100" : "opacity-50"} ${eachAchievement.achievementStatus === true ? "border border-gray-300" : ""} `}>
                            <div><CircleIcon circleIconInfo ={eachAchievement}/></div>
                            <div  className="text-[#1d1a23] font-semibold text-base md:text-lg">{eachAchievement.achievementTitle}</div>
                            <div className="flex items-center text-[#717171] text-xs md:text-base gap-1">{eachAchievement.achievementSubTitle}</div>

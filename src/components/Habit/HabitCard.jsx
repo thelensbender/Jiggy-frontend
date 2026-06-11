@@ -21,7 +21,7 @@ export default function HabitCard({habit, setShowConfirm, setSelectedHabit}) {
    const habitName = habit.habitName;
 
    return (
-      <div className="relative rounded-md flex items-center justify-between gap-5 bg-[#fffdff] py-5 px-3 md:px-5 group hover:shadow-xl">
+      <div className="relative rounded-md flex items-center justify-between gap-5 bg-[#fffdff] py-5 px-3 md:px-5 group transition-all duration-200 hover:shadow-xl">
          <div className="flex gap-3 items-center">
             {/* Icon circle background */}
             <div style={{ backgroundColor: habit.divBackground }} className="flex justify-center items-center rounded-full h-13 w-13 lg:h-16 lg:w-16"><Icon color={habit.habitIconColor} size={20}></Icon></div>
@@ -49,7 +49,7 @@ export default function HabitCard({habit, setShowConfirm, setSelectedHabit}) {
             setSelectedHabit(habit);
             setShowConfirm(true);
          }}
-         className="flex absolute md:bottom-14 md:right-0 bottom-15 -right-1 opacity-50 md:bg-gray-200  p-2 rounded-tr cursor-pointer md:invisible md:group-hover:visible">
+         className="flex absolute md:bottom-14 md:right-0 bottom-15 -right-1 opacity-50 md:bg-gray-200  p-2 rounded-tr cursor-pointer md:invisible transition-all duration-150 hover: md:group-hover:visible">
             <Trash2 size={19}/>
          </div>
       </div>

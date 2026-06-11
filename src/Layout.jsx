@@ -7,7 +7,7 @@ export default function Layout() {
   return (
       <div className="select-none">
          <TopNavBar />
-         <div className="mx-2 pt-25 mb-30">
+         <div className="mx-2 pt-25 md:pt-27 mb-30">
             <Outlet />
          </div>
          <BottomNavBar />

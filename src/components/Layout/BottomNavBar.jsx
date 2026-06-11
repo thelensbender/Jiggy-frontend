@@ -37,7 +37,8 @@ export default function BottomNavBar() {
                <NavLink
                   key={i}
                   to = {eachTab.navigate}
-                  className={({ isActive }) => `flex flex-col items-center cursor-pointer py-4 px-6 rounded-2xl  ${ isActive ? 'bg-[#8b5cf6] shadow ' : 'bg-white'}`}>
+                  draggable="false"
+                  className={({ isActive }) => `flex flex-col items-center cursor-pointer py-4 px-6 rounded-2xl transition-all duration-100 hover:bg-[#8a5cf646] ${ isActive ? 'bg-[#8b5cf6] hover:bg-[#8b5cf6] shadow ' : 'bg-white'}`}>
 
                   {({ isActive }) => {
                      const Icon = eachTab.Icon;

@@ -12,3 +12,4 @@ export const diffInDays = (dateA, dateB) => {
    const dayDiff = Math.round(timeDiff / (1000 * 60 * 60 * 24));
    return dayDiff;
 }
+
