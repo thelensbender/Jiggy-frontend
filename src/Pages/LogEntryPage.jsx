@@ -120,6 +120,25 @@ export default function LogEntry() {
             backgroundColor: "#8B5CF6",
             textColour: "white",
             onClick: () => {
+               setHabits((prev) => {
+                  return prev.map((habit) => {
+                     if(habit.habitId === habitId) {
+                        if(habitLog === habit.entries[habit.entries.length - 1]) {
+                           notify(`Logged for the day!`, "success");
+                           navigate("/habit");
+                           return habit;
+                        }
+                        const newentry = [
+                           ...habit.entries, habitLog
+                        ]
+                        return {...habit,
+                           entries: newentry,
+                           streak: 0
+                        }
+                     }
+                        return habit;
+                  })
+               });
                notify(`Skipped ${habitName.length > 20 ? ((habitName).slice(0, 20) + "...") : habitName} for today`, "success");
                navigate("/habit");
             }
