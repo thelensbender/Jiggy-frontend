@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Routes, Route } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import UserContext from "./Context/UserContext"
@@ -30,11 +30,6 @@ export default function App() {
       return stored ? JSON.parse(stored) : [];
    });
 
-   useEffect(() => {
-      localStorage.setItem("habits", JSON.stringify(habits));
-   }, [habits]);
-
-
    // Stores the user Information.Check the user local storage first before creating an empty object
    const [userInfo, setUserInfo] = useState( localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) :
       {
@@ -50,10 +45,34 @@ export default function App() {
       }
    );
 
+   // Stores habits locally
+   useEffect(() => {
+      localStorage.setItem("habits", JSON.stringify(habits));
+   }, [habits]);
+
+   // Stores UserInfo locally
    useEffect(() => {
       localStorage.setItem("userInfo", JSON.stringify(userInfo));
    }, [userInfo])
 
+   // State to store user achievements
+   const achievement = useMemo(() => {
+      if (habits.length === 0) return {bestStreak: 0, activeStreak: 0};
+
+      const activeStreak = Math.max(...habits.map(h => h.streak), 0);
+      const storedAchievement = JSON.parse(localStorage.getItem("achievement"));
+      const habitBest = Math.max(...habits.map(h => h.streak), 0);
+      const bestStreak = storedAchievement 
+      ? Math.max(storedAchievement.bestStreak, habitBest) 
+      : habitBest;
+
+  return { bestStreak, activeStreak };
+   }, [habits])
+
+   useEffect(() => {
+      localStorage.setItem("achievement", JSON.stringify(achievement));
+   }, [achievement])
+   
    // Notification function
    const notify = (notificationMessage, status) => {
       toast[status](notificationMessage, {
@@ -92,19 +111,20 @@ export default function App() {
    }
 
    // For user password
-   const [password, setPassword] = useState(
-      {
-         currentPassword: "",
-         newPassword: "",
-         confirmNewPassword: ""
-      }
-   );
+   // const [password, setPassword] = useState(
+   //    {
+   //       currentPassword: "",
+   //       newPassword: "",
+   //       confirmNewPassword: ""
+   //    }
+   // );
 
    // This state is used to collect user information, habit information during creation (or editing(I haven't worked on it)) and to log habit.
    const [form, setForm] = useState(formFormat);
 
+
    return (
-      <UserContext.Provider value = {{userInfo, setUserInfo, habits, setHabits, form, setForm, formFormat, notify, calculateStreak}}>
+      <UserContext.Provider value = {{userInfo, setUserInfo, habits, setHabits, form, setForm, formFormat, notify, calculateStreak, achievement}}>
          <Toaster />
          <ScrollToTop />
          <Routes>
