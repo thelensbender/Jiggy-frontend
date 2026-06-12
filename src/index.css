@@ -44,3 +44,47 @@ body::-webkit-scrollbar-thumb {
 .fire {
   animation: fire 2s ease-in-out infinite;
 }
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(60px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(60px) rotate(-360deg); }
+}
+
+.orbit {
+  animation: orbit 4s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  from { transform: rotate(180deg); }
+  to { transform: rotate(-180deg); }
+}
+
+.orbit-wrapper {
+  animation: spin 5s linear infinite;
+}
+
+.orbit-reverse-wrapper {
+  animation: spin-reverse 5s linear infinite;
+}
+
+.orbit {
+  transform: translate(-50%, -50%) translateX(50px);
+}
+
+.orbit-reverse {
+  transform: translate(-50%, -50%) translateX(50px);
+}
+
+@keyframes fade-in-out {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.fade-logo {
+  animation: fade-in-out 2.5s ease-in-out infinite;
+}
