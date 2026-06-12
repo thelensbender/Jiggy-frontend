@@ -29,11 +29,15 @@ export default function FirstStreak() {
          <div className="flex flex-col justify-items-center">
 
             {/* Circles Div */}
-            <div className="flex justify-center">
-               <div className="flex self-end rounded-full h-4 w-4 bg-[#00675e]"></div>
-               <div className=" flex justify-center items-center rounded-full h-18 w-18 bg-[#ecd4ff]"><Rocket size={30} color="grey"></Rocket></div>
-               <div className="flex self-start rounded-full h-4 w-4 bg-[#7e4f00]"></div>
+         <div className="relative flex justify-center items-center rounded-full h-18 w-18 bg-[#ecd4ff] mx-auto">
+            <Rocket size={30} color="grey" />
+            <div className="orbit-wrapper absolute top-1/2 left-1/2 w-0 h-0">
+               <div className="orbit absolute rounded-full h-4 w-4 bg-[#00675e]"></div>
             </div>
+            <div className="orbit-reverse-wrapper absolute top-1/2 left-1/2 w-0 h-0">
+               <div className="orbit-reverse absolute rounded-full h-4 w-4 bg-[#7e4f00]"></div>
+            </div>
+         </div>
 
             {/* Text area */}
             <div className="mt-10">

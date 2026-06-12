@@ -41,8 +41,9 @@ export default function WelcomeScreen() {
 
          {/* Circles Div */}
          <div className="flex justify-center">
-            <div className="rounded-full h-18 w-18 bg-[#8B5CF6]"></div>
-         <div className="flex self-start rounded-full h-4 w-4 bg-[#7e4f00]"></div>
+            <div className="relative rounded-full h-18 w-18 bg-[#8B5CF6]">
+               <div className="orbit absolute top-1/2 left-1/2 rounded-full h-4 w-4 bg-[#7e4f00]"></div>
+            </div>
          </div>
 
          {/* Text area */}

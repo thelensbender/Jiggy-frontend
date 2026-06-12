@@ -4,13 +4,14 @@ import UserContext from "../Context/UserContext.js";
 import { useParams } from "react-router-dom";
 import {useNavigate } from "react-router-dom";
 
-import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../config";
-import { Contract } from "ethers";
 import { useWallet } from "../Context/WalletContext";
 
 // Icons
 import { Check, Dumbbell, ArrowLeft, Calendar } from 'lucide-react';
 import confetti from "canvas-confetti";
+
+// Logo
+import  TextWithLogo from "../assets/Logos/jiggy_icon-t.png";
 
 // Components
 import ElementHeader from "../components/UI/ElementHeader.jsx";
@@ -19,8 +20,10 @@ import Button from "../components/UI/Button.jsx";
 import ConfirmLayout from "../components/Layout/ConfirmLayout.jsx";
 
 export default function LogEntry() {
+   const BACKEND_URL = "https://jiggy-backend.onrender.com";
    const [showConfirm, setShowConfirm] = useState(false);
    const [milestoneModal, setMilestoneModal] = useState(null);
+   const [isMinting, setIsMinting] = useState(false);
    const { provider, walletAddress } = useWallet();
 
    const { habits, setHabits, form, notify, calculateStreak } = useContext(UserContext);
@@ -63,10 +66,22 @@ export default function LogEntry() {
    const week = ["M", "T", "W", "T", "F", "S", "S"];
    const habitLog = {...form.entries};
    async function mintNFT(streakLevel) {
-      const signer = await provider.getSigner();
-      const contract = new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
-      const tx = await contract.mintNft(walletAddress, streakLevel);
-      await tx.wait();
+      const level = milestoneToLevel(streakLevel);
+      const res = await fetch(`${BACKEND_URL}/mint`, {
+         method: "POST",
+         headers: { "Content-Type": "application/json" },
+         body: JSON.stringify({ address: walletAddress, level })
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error || "Mint failed");
+      return data;
+   }
+
+   function milestoneToLevel(streak) {
+      if (streak === 7) return 1;
+      if (streak === 1) return 2;
+      if (streak === 100) return 3;
+      return 0;
    }
 
    const buttonInfoLog = [
@@ -77,51 +92,64 @@ export default function LogEntry() {
          textColour: "white",
          onClick: async ()=> {
             let milestoneHit = null;
-                     setHabits((prev) => {
-                        return prev.map((habit) => {
-                           if(habit.habitId === habitId) {
-                              if(habitLog === habit.entries[habit.entries.length - 1]) {
-                                 notify(`Logged for the day!`, "success");
-                                 navigate("/habit");
-                                 return habit;
-                              }
-                              const newentry = [...habit.entries, habitLog];
-                              const newStreak = calculateStreak(newentry);
-
-                              if (newStreak === 7 || newStreak === 30 || newStreak === 100) {
-                                 milestoneHit = newStreak;
-                              }
-                              return {...habit,
-                                 entries: newentry,
-                                 streak: calculateStreak(newentry)
-                              }
-                           }
-                              return habit;
-                        })
-                     });
-                     if (milestoneHit) {
-                        confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 } });
-
-                        try {
-                           const contract = new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, await provider.getSigner());
-                           const alreadyMinted = await contract._hasMinted(walletAddress, milestoneToLevel(milestoneHit));
-
-                           if (!alreadyMinted) {
-                              setMilestoneModal(milestoneHit); // "You won an NFT!" modal
-                              await mintNFT(milestoneHit);
-                           } else {
-                              notify(`You hit a ${milestoneHit}-day streak again! 🔥`, "success");
-                           }
-                        } catch (err) {
-                           console.error("Mint check/mint failed:", err);
-                        }
-                     }
-                     if (milestoneHit)
-                     notify(`You are amazing!`, "success");
-                     setTimeout(() => {
+            setHabits((prev) => {
+               return prev.map((habit) => {
+                  if(habit.habitId === habitId) {
+                     if(habitLog === habit.entries[habit.entries.length - 1]) {
+                        notify(`Logged for the day!`, "success");
                         navigate("/habit");
+                        return habit;
+                     }
+                     const newentry = [...habit.entries, habitLog];
+                     const newStreak = calculateStreak(newentry);
+
+                     if (newStreak === 1 || newStreak === 30 || newStreak === 100) {
+                        milestoneHit = newStreak;
+                     }
+                     return {...habit,
+                        entries: newentry,
+                        streak: calculateStreak(newentry)
+                     }
+                  }
+                     return habit;
+               })
+            });
+            if (milestoneHit) {
+               confetti({ particleCount: 700, spread: 90, origin: { y: 0.6 } });
+               notify("You've hit a milestone!", "success");
+
+               try {
+                  const checkRes = await fetch(`${BACKEND_URL}/has-minted?address=${walletAddress}&level=${milestoneToLevel(milestoneHit)}`);
+                  const { hasMinted: alreadyMinted } = await checkRes.json();
+
+                  if (!alreadyMinted) {
+                     setIsMinting(true);
+                     setMilestoneModal(milestoneHit);
+                     try {
+                        await mintNFT(milestoneHit);
+                     } catch (err) {
+                        console.error("Mint failed:", err);
+                        notify("Minting failed. Check network/wallet.", "error");
+                     } finally {
+                        setIsMinting(false);
+                        notify("Mint Successful. Check your wallet.", "success");
+                     }
+                  }
+                  if(alreadyMinted) {
+                     setTimeout(() => {
+                        notify("Milestone NFT claimed", "success");
                      }, 1000);
                   }
+               } catch (err) {
+                  console.error("Mint check/mint failed:", err);
+               }
+
+               setTimeout(() => navigate("/habit"), 3000);
+               } else {
+               notify(`You are amazing!`, "success");
+               navigate("/habit");
+            }
+         }
       },
       {
          text: "Skip for today",
@@ -185,9 +213,16 @@ export default function LogEntry() {
 
    return (
       // Main div
+      // jiggy_icon-t
       <>
          {showConfirm && (
             <ConfirmLayout confirmDetails = {confirmDetails} habit = {findHabit} setShowConfirm = {setShowConfirm} />
+         )}
+         {isMinting && (
+            <div className="fixed inset-0 bg-black/50 flex flex-col items-center justify-center z-50">
+               <div className="fade-logo flex justify-center items-center p-2 bg-gray-50 opacity-80 rounded-full"><img src={TextWithLogo} alt="Loading" className="w-35" /></div>
+               <p className="text-white mt-4">Minting NFT...</p>
+            </div>
          )}
          <div className="flex items-center justify-center pb-20">
             {/* Elements div */}
@@ -198,7 +233,7 @@ export default function LogEntry() {
                <ElementHeader elementInfo={elementInfo}/>
 
                {/* A week progress(Show from Monday to Sunday) */}
-               <div className="flex w-full justify-between mt-10">
+               <div className="flex w-full justify-between mt-10 gap-8 md:gap-10">
                   {week.map((day, i) =>{
                      return (
                         <div key={i} className="flex flex-col gap-1 items-center">
