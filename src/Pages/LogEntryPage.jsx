@@ -4,6 +4,10 @@ import UserContext from "../Context/UserContext.js";
 import { useParams } from "react-router-dom";
 import {useNavigate } from "react-router-dom";
 
+import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../config";
+import { Contract } from "ethers";
+import { useWallet } from "../Context/WalletContext";
+
 // Icons
 import { Check, Dumbbell, ArrowLeft, Calendar } from 'lucide-react';
 import confetti from "canvas-confetti";
@@ -17,6 +21,7 @@ import ConfirmLayout from "../components/Layout/ConfirmLayout.jsx";
 export default function LogEntry() {
    const [showConfirm, setShowConfirm] = useState(false);
    const [milestoneModal, setMilestoneModal] = useState(null);
+   const { provider, walletAddress } = useWallet();
 
    const { habits, setHabits, form, notify, calculateStreak } = useContext(UserContext);
    const navigate = useNavigate();
@@ -57,6 +62,12 @@ export default function LogEntry() {
 
    const week = ["M", "T", "W", "T", "F", "S", "S"];
    const habitLog = {...form.entries};
+   async function mintNFT(streakLevel) {
+      const signer = await provider.getSigner();
+      const contract = new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+      const tx = await contract.mintNft(walletAddress, streakLevel);
+      await tx.wait();
+   }
 
    const buttonInfoLog = [
       {
@@ -64,7 +75,7 @@ export default function LogEntry() {
          icon: Check,
          backgroundColor: "#8B5CF6",
          textColour: "white",
-         onClick: ()=> {
+         onClick: async ()=> {
             let milestoneHit = null;
                      setHabits((prev) => {
                         return prev.map((habit) => {
@@ -89,15 +100,27 @@ export default function LogEntry() {
                         })
                      });
                      if (milestoneHit) {
-                        confetti({
-                           particleCount: 200,
-                           spread: 90,
-                           origin: { y: 0.6 }
-                        });
-                        setMilestoneModal(milestoneHit);
+                        confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 } });
+
+                        try {
+                           const contract = new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, await provider.getSigner());
+                           const alreadyMinted = await contract._hasMinted(walletAddress, milestoneToLevel(milestoneHit));
+
+                           if (!alreadyMinted) {
+                              setMilestoneModal(milestoneHit); // "You won an NFT!" modal
+                              await mintNFT(milestoneHit);
+                           } else {
+                              notify(`You hit a ${milestoneHit}-day streak again! 🔥`, "success");
+                           }
+                        } catch (err) {
+                           console.error("Mint check/mint failed:", err);
+                        }
                      }
+                     if (milestoneHit)
                      notify(`You are amazing!`, "success");
-                     navigate("/habit");
+                     setTimeout(() => {
+                        navigate("/habit");
+                     }, 1000);
                   }
       },
       {
