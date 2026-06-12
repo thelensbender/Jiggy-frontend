@@ -1,4 +1,4 @@
-# Streakflow
+# Jiggy
 
 A clean, practical React app for tracking daily habits, streaks, and personal consistency metrics. Built as a portfolio project to practice real-world React patterns including component architecture, state management, streak logic, and localStorage persistence.
 
@@ -51,7 +51,7 @@ src/
 
 ```bash
 # Clone the repo
-git clone https://github.com/thelensbender/Streakflow.git
+git clone https://github.com/thelensbender/Jiggy-frontend.git
 cd daily-consistency-dashboard
 
 # Install dependencies
