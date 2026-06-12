@@ -2,7 +2,14 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { BrowserProvider } from "ethers";
 
 // 1. Create the notice board
-const WalletContext = createContext(null);
+const WalletContext = createContext({
+  walletAddress: null,
+  shortAddress: null,
+  isConnecting: false,
+  provider: null,
+  connectWallet: () => {},
+  disconnectWallet: () => {}
+});
 
 // 2. The Provider — wraps your app so every component can read the board
 export function WalletProvider({ children }) {

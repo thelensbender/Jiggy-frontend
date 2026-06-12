@@ -1,6 +1,6 @@
 import { Calendar1, Layers, ChartColumnIncreasing, Settings , Icon} from 'lucide-react';
 
-import { useNavigate, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function BottomNavBar() {
    // Describe the data of each tab button
