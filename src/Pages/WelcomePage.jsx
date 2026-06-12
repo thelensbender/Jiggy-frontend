@@ -57,7 +57,7 @@ export default function WelcomeScreen() {
 
 
          {/* Let's go button */}
-         <div className="w-full mt-8">
+         <div className="flex justify-center w-full mt-8">
             <Button
                onClick = {()=> {
                   if (form.userInfo.username) {
