@@ -51,7 +51,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .orbit {
-  animation: orbit 4s linear infinite;
+  animation: orbit 10s linear infinite;
 }
 
 @keyframes spin {
@@ -65,11 +65,11 @@ body::-webkit-scrollbar-thumb {
 }
 
 .orbit-wrapper {
-  animation: spin 5s linear infinite;
+  animation: spin 40s linear infinite;
 }
 
 .orbit-reverse-wrapper {
-  animation: spin-reverse 5s linear infinite;
+  animation: spin-reverse 40s linear infinite;
 }
 
 .orbit {

@@ -5,7 +5,7 @@ export default function TopNavBar() {
       // Main div
       <div className="w-full fixed backdrop-filter backdrop-transparent backdrop-blur-md z-10">
          <div className=" flex items-center justify-start px-3">
-            <div className="w-35 md:w-40"><img draggable="false" className="w-full" src={TextWithLogo} alt="Streakflow Logo" /></div> {/* Logo  */}
+            <div className="w-25 md:w-40"><img draggable="false" className="w-full" src={TextWithLogo} alt="Streakflow Logo" /></div> {/* Logo  */}
          </div>
       </div>
   )

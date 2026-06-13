@@ -30,7 +30,7 @@ export default function BottomNavBar() {
    // Main div
    <div className="flex justify-center items-center w-full fixed bottom-0 bg-white md:h-20 md:px-40 z-10">
       {/* Grouped tab div */}
-      <div className="flex items-center justify-between gap-5 md:gap-10 lg:gap-15 xl:gap-25 h-full">
+      <div className="flex items-center justify-between md:gap-10 lg:gap-15 xl:gap-25 h-full">
          {buttomNav.map((eachTab, i) => {
             // Each Tab
             return (
