@@ -82,7 +82,7 @@ export default function SecurityAndPrivacyPage() {
             </div>
             <div className="text-2xl md:text-4xl md:text-wrap font-bold font-sans mb-5 ">Security And Privacy</div>
          </div>
-
+            <div className="text-lg text-[#5d25d4] font-sans font-bold tracking-wide">Page Inactive yet</div>
          {/* Left Section */}
          <div className='w-full'>
             {/* Change of password form */}

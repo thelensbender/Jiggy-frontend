@@ -106,6 +106,7 @@ export default function ProfilePage() {
                      <div className="text-[#746e7c] text-sm md:text-base font-sans tracking-widest mb-3">
                         {eachSettings.heading}
                      </div>
+                     <div className="text-sm md:text-base text-[#5d25d4] font-sans font-bold tracking-wide">Feature Inactive yet</div>
 
                      <div className="w-full bg-[#ffffff80] rounded-4xl shadow">
                         <div className="w-full">
