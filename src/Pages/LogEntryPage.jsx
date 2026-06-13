@@ -24,7 +24,7 @@ export default function LogEntry() {
    const [showConfirm, setShowConfirm] = useState(false);
    const [milestoneModal, setMilestoneModal] = useState(null);
    const [isMinting, setIsMinting] = useState(false);
-   const { provider, walletAddress } = useWallet();
+   const { walletAddress } = useWallet();
 
    const { habits, setHabits, form, notify, calculateStreak } = useContext(UserContext);
    const navigate = useNavigate();
@@ -59,7 +59,7 @@ export default function LogEntry() {
       type: "text",
       name: "reflection",
       required: false,
-      heading: "Reflection (optional)",
+      heading: "REFLECTION (optional)",
       options: []
    }]
 
@@ -233,7 +233,7 @@ export default function LogEntry() {
                <ElementHeader elementInfo={elementInfo}/>
 
                {/* A week progress(Show from Monday to Sunday) */}
-               <div className="flex w-full justify-between mt-10 gap-8 md:gap-10">
+               <div className="flex w-full justify-between mt-10 gap-3 md:gap-10">
                   {week.map((day, i) =>{
                      return (
                         <div key={i} className="flex flex-col gap-1 items-center">

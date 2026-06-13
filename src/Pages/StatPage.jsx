@@ -102,15 +102,15 @@ export default function StatTab() {
 
    return (
       // Main div
-      <div className="flex justify-center">
+      <div className="flex items-center justify-center">
          {/* Elements div */}
-         <div className="flex flex-col items-center gap-10 md:gap-14">
+         <div className="flex flex-col justify-center items-center gap-2 md:gap-14">
             {/* Header */}
-            <div  className="flex flex-col items-center">
+            <div  className="flex flex-col justify-center items-center">
                <ElementHeader elementInfo={ElementInfo} />
             </div>
             {/* Active and best streak count */}
-            <div className="flex gap-8 md:gap-12 items-center justify-between">
+            <div className="flex gap-2 md:gap-12 items-center justify-between">
                <div className="flex flex-col justify-center bg-white p-5 w-30 h-30 md:w-55 rounded-lg shadow">
                   <div className="text-base md:text-lg text-[#494454] font-sans font-bold tracking-widest">Active Streak</div>
                   <div className="flex items-end gap-1">
@@ -129,20 +129,20 @@ export default function StatTab() {
 
 
             {/* GRAPH SPACE */}
-            <div className="w-full flex flex-col justify-center items-start">
+            <div className="w-full flex flex-col justify-center items-center">
                <div className="text-sm font-sans font-semibold tracking-widest md:text-lg">Graphical Daily Activities</div>
-               <div className='floating flex w-100 md:w-130'><img src={comingSoon} alt="" className='w-full'/></div>
+               <div className='floating flex w-80 md:w-130'><img src={comingSoon} alt="" className='w-full'/></div>
             </div>
 
             {/* Streak history */}
-            <div className="w-full flex flex-col justify-center items-start">
+            <div className="w-full flex flex-col justify-center items-center">
                <div className="text-sm font-sans font-semibold tracking-widest md:text-lg">Streak History</div>
                <div className="flex flex-col gap-5 w-full mt-5">
                   {streakHistory.map((eachHistory, i) =>{
                      return (
                         <div
                            key={i}
-                           className="flex items-center justify-between w-full py-2 px-2 md:py-3 md:px-5 bg-[#ece3f494] rounded-full transition-all duration-200 hover:shadow-xl">
+                           className="flex items-center justify-between w-full py-3 px-3 md:py-3 md:px-5 bg-[#ece3f494] rounded-full transition-all duration-200 hover:shadow-xl">
                            <div className="flex items-center justify-center gap-6 w-full">
                               <CircleIcon key = {eachHistory.id} circleIconInfo = {eachHistory}/>
                               <div className="w-full">
@@ -161,9 +161,9 @@ export default function StatTab() {
             </div>
 
             {/* NFT Milestone Progress */}
-            <div className="w-full flex flex-col justify-center items-start">
+            <div className="w-full flex flex-col justify-center items-center">
                <div className="text-sm font-sans font-semibold tracking-widest md:text-lg">NFT Milestone Progress</div>
-               <div className="flex flex-col items-center relative rounded-md w-full bg-[#fffdff] py-5 px-3 md:px-5 group mt-5 gap-3">
+               <div className="flex flex-col items-center relative rounded-md w-full bg-[#fffdff] py-5 px-3 md:px-5 group mt-5  gap-3">
                   <div className="flex items-center justify-between w-full gap-5">
                      <div className="flex gap-3 items-center">
                         {/* Icon circle background */}
@@ -186,13 +186,13 @@ export default function StatTab() {
             </div>
 
             {/* NFT Achievements */}
-            <div className="w-full flex flex-col justify-center items-start">
+            <div className="w-full flex flex-col justify-center items-center">
                <div className="text-sm font-sans font-semibold tracking-widest md:text-lg">NFT Achievements</div>
                {/* Achievements badges */}
                <div className="flex gap-3 mt-5">
                   {nftAchievement.map((eachAchievement, i) => {
                      return (
-                        <div key = {i} className={`flex flex-col justify-center items-center shadow-xl px-10 py-3 rounded-2xl ${eachAchievement.achievementStatus === true ? " glow opacity-100" : "opacity-50"} ${eachAchievement.achievementStatus === true ? "border border-gray-300" : ""} `}>
+                        <div key = {i} className={`flex flex-col justify-center items-center shadow-xl p-4 md:px-10 py-3 rounded-2xl ${eachAchievement.achievementStatus === true ? " glow opacity-100" : "opacity-50"} ${eachAchievement.achievementStatus === true ? "border border-gray-300" : ""} `}>
                            <div><CircleIcon circleIconInfo ={eachAchievement}/></div>
                            <div  className="text-[#1d1a23] font-semibold text-base md:text-lg">{eachAchievement.achievementTitle}</div>
                            <div className="flex items-center text-[#717171] text-xs md:text-base gap-1">{eachAchievement.achievementSubTitle}</div>

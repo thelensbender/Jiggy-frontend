@@ -29,18 +29,18 @@ export default function FirstStreak() {
          <div className="flex flex-col justify-items-center">
 
             {/* Circles Div */}
-         <div className="relative flex justify-center items-center rounded-full h-18 w-18 bg-[#ecd4ff] mx-auto">
-            <Rocket size={30} color="grey" />
-            <div className="orbit-wrapper absolute top-1/2 left-1/2 w-0 h-0">
-               <div className="orbit absolute rounded-full h-4 w-4 bg-[#00675e]"></div>
+            <div className="relative flex justify-center items-center rounded-full h-18 w-18 bg-[#ecd4ff] mx-auto">
+               <Rocket size={30} color="grey" />
+               <div className="orbit-wrapper absolute top-1/2 left-1/2 w-0 h-0">
+                  <div className="orbit absolute rounded-full h-4 w-4 bg-[#00675e]"></div>
+               </div>
+               <div className="orbit-reverse-wrapper absolute top-1/2 left-1/2 w-0 h-0">
+                  <div className="orbit-reverse absolute rounded-full h-4 w-4 bg-[#7e4f00]"></div>
+               </div>
             </div>
-            <div className="orbit-reverse-wrapper absolute top-1/2 left-1/2 w-0 h-0">
-               <div className="orbit-reverse absolute rounded-full h-4 w-4 bg-[#7e4f00]"></div>
-            </div>
-         </div>
 
             {/* Text area */}
-            <div className="mt-10">
+            <div className="flex flex-col justify-center items-center mt-8">
                <div className="flex justify-center text-center font-sans font-bold text-3xl max-w-11/12  text-[#39264c]">Start your first streak</div>
                <div className="flex text-center justify-center font-normal text-[#8479c4] mt-4">Pick something you want to do every day. Log it once and watch the streak grow.</div>
             </div>

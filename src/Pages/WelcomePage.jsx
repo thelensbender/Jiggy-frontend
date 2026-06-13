@@ -37,7 +37,7 @@ export default function WelcomeScreen() {
    // Main div
    <div className="flex items-center justify-center h-screen w-full">
       {/* Elements div */}
-      <div className=" flex flex-col justify-items-center px-3 py-5 h-4/5">
+      <div className=" flex flex-col justify-items-center px-3 py-5">
 
          {/* Circles Div */}
          <div className="flex justify-center">
@@ -53,11 +53,11 @@ export default function WelcomeScreen() {
          </div>
 
          {/* Input field */}
-         <Input inputInfo = {inputInfo} />
+         <div className="-mt-8"><Input inputInfo = {inputInfo} /></div>
 
 
          {/* Let's go button */}
-         <div className="flex justify-center w-full mt-8">
+         <div className="flex justify-center w-full mt-5">
             <Button
                onClick = {()=> {
                   if (form.userInfo.username) {

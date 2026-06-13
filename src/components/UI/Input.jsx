@@ -62,7 +62,7 @@ export default function Input({inputInfo}) {
                   )}
 
                   {/* Input field */}
-                  <div className="flex mt-3 items-center justify-center">
+                  <div className="flex md:mt-3 items-center justify-center">
 
                      {/* Input for Text*/}
                      {EachInputInfo.type !== "radio" ? (
@@ -163,7 +163,7 @@ export default function Input({inputInfo}) {
                                        }
                                  }}
                                  value={getValue(EachInputInfo.name) || "" }
-                                 className="bg-[#f3e6fa76] rounded-md overflow-hidden w-full h-6 md:h-12 py-5 px-5 font-sans text-center  placeholder:text-center placeholder-current::placeholder focus:outline-none focus:ring-1 focus:ring-[#8B5CF6]"/>
+                                 className="bg-[#f3e6fa76] rounded-md overflow-hidden w-full h-13 md:h-14 py-5 px-5 font-sans text-center  placeholder:text-center placeholder-current::placeholder focus:outline-none focus:ring-1 focus:ring-[#8B5CF6]"/>
                            )
 
                      ) : (
