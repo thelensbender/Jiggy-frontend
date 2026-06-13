@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import {useNavigate } from "react-router-dom";
 
 import { useWallet } from "../Context/WalletContext";
+import { milestoneToLevel, checkAlreadyMinted, mintNFT } from "../utils/mintHelper.js";
 
 // Icons
 import { Check, Dumbbell, ArrowLeft, Calendar } from 'lucide-react';
@@ -20,7 +21,6 @@ import Button from "../components/UI/Button.jsx";
 import ConfirmLayout from "../components/Layout/ConfirmLayout.jsx";
 
 export default function LogEntry() {
-   const BACKEND_URL = "https://jiggy-backend.onrender.com";
    const [showConfirm, setShowConfirm] = useState(false);
    const [milestoneModal, setMilestoneModal] = useState(null);
    const [isMinting, setIsMinting] = useState(false);
@@ -65,24 +65,6 @@ export default function LogEntry() {
 
    const week = ["M", "T", "W", "T", "F", "S", "S"];
    const habitLog = {...form.entries};
-   async function mintNFT(streakLevel) {
-      const level = milestoneToLevel(streakLevel);
-      const res = await fetch(`${BACKEND_URL}/mint`, {
-         method: "POST",
-         headers: { "Content-Type": "application/json" },
-         body: JSON.stringify({ address: walletAddress, level })
-      });
-      const data = await res.json();
-      if (!data.success) throw new Error(data.error || "Mint failed");
-      return data;
-   }
-
-   function milestoneToLevel(streak) {
-      if (streak === 7) return 1;
-      if (streak === 1) return 2;
-      if (streak === 100) return 3;
-      return 0;
-   }
 
    const buttonInfoLog = [
       {
@@ -115,18 +97,26 @@ export default function LogEntry() {
                })
             });
             if (milestoneHit) {
-               confetti({ particleCount: 700, spread: 90, origin: { y: 0.6 } });
                notify("You've hit a milestone!", "success");
-
+               confetti({ particleCount: 700, spread: 90, origin: { y: 0.6 } });
+               if (!walletAddress) {
+                  localStorage.setItem("pendingMilestone", milestoneHit);
+                  console.log("immediately after set:", localStorage.getItem("pendingMilestone"));
+                  setTimeout(() => {
+                     notify("Connect your wallet in settings to claim your NFT!", "error");
+                     navigate("/settings/personal-information");
+                  }, 2000);
+                  return;
+               }
                try {
-                  const checkRes = await fetch(`${BACKEND_URL}/has-minted?address=${walletAddress}&level=${milestoneToLevel(milestoneHit)}`);
-                  const { hasMinted: alreadyMinted } = await checkRes.json();
+
+                  const alreadyMinted = await checkAlreadyMinted(walletAddress, milestoneToLevel(milestoneHit));
 
                   if (!alreadyMinted) {
                      setIsMinting(true);
                      setMilestoneModal(milestoneHit);
                      try {
-                        await mintNFT(milestoneHit);
+                        await mintNFT(walletAddress, milestoneHit);
                      } catch (err) {
                         console.error("Mint failed:", err);
                         notify("Minting failed. Check network/wallet.", "error");
@@ -143,7 +133,6 @@ export default function LogEntry() {
                } catch (err) {
                   console.error("Mint check/mint failed:", err);
                }
-
                setTimeout(() => navigate("/habit"), 3000);
                } else {
                notify(`You are amazing!`, "success");
