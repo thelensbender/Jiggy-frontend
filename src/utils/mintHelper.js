@@ -1,7 +1,7 @@
 const BACKEND_URL = "https://jiggy-backend-lbpz.onrender.com";
 
 export function milestoneToLevel(streak) {
-  if (streak === 1) return 1;
+  if (streak === 7) return 1;
   if (streak === 30) return 2;
   if (streak === 100) return 3;
   return 0;
