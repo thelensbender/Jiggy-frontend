@@ -85,7 +85,7 @@ export default function LogEntry() {
                      const newentry = [...habit.entries, habitLog];
                      const newStreak = calculateStreak(newentry);
 
-                     if (newStreak === 1 || newStreak === 30 || newStreak === 100) {
+                     if (newStreak === 7 || newStreak === 30 || newStreak === 100) {
                         milestoneHit = newStreak;
                      }
                      return {...habit,
